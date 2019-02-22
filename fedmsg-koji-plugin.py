@@ -5,21 +5,22 @@
 #     Ralph Bean <rbean@redhat.com>
 #     Mike Bonnet <mikeb@redhat.com>
 
+import logging
+
 from koji.context import context
 from koji.plugin import callbacks
 from koji.plugin import callback
 from koji.plugin import ignore_error
-
-import fedmsg
+import fedora_messaging.api
+import fedora_messaging.exceptions
 import kojihub
 import re
 
 import pprint
 
-# Talk to the fedmsg-relay
-fedmsg.init(name='relay_inbound', cert_prefix='koji', active=True)
 
 MAX_KEY_LENGTH = 255
+log = logging.getLogger(__name__)
 
 
 def camel_to_dots(name):
@@ -174,7 +175,7 @@ def queue_message(cbtype, *args, **kws):
 
     # We need this to distinguish between messages from primary koji
     # and the secondary hubs off for s390 and ppc.
-    body['instance'] = '{{ fedmsg_koji_instance }}'
+    body['instance'] = 'primary'
 
     # Don't publish these uninformative rpm.sign messages if there's no actual
     # sigkey present.  Koji apparently adds a dummy sig value when rpms are
@@ -201,7 +202,7 @@ def queue_message(cbtype, *args, **kws):
     # Queue the message for later.
     # It will only get sent after postCommit is called.
     messages = getattr(context, 'fedmsg_plugin_messages', [])
-    messages.append(dict(topic=topic, msg=body, modname='buildsys'))
+    messages.append(dict(topic=topic, msg=body))
     context.fedmsg_plugin_messages = messages
 
 
@@ -211,4 +212,17 @@ def queue_message(cbtype, *args, **kws):
 def send_messages(cbtype, *args, **kws):
     messages = getattr(context, 'fedmsg_plugin_messages', [])
     for message in messages:
-        fedmsg.publish(**message)
+        try:
+            msg = fedora_messaging.api.Message(
+                topic="buildsys.{}".format(message['topic']),
+                body=message['body']
+            )
+            fedora_messaging.api.publish(msg)
+        except fedora_messaging.exceptions.PublishReturned as e:
+            log.warning(
+                "Fedora Messaging broker rejected message %s: %s", msg.id, e
+            )
+        except fedora_messaging.exceptions.ConnectionException as e:
+            log.warning("Error sending message %s: %s", msg.id, e)
+        except Exception:
+            log.exception("Un-expected error sending fedora-messaging message")
