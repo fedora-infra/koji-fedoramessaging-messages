@@ -6,6 +6,7 @@
 #     Mike Bonnet <mikeb@redhat.com>
 
 import logging
+import re
 
 from koji.context import context
 from koji.plugin import callbacks
@@ -14,9 +15,6 @@ from koji.plugin import ignore_error
 import fedora_messaging.api
 import fedora_messaging.exceptions
 import kojihub
-import re
-
-import pprint
 
 
 MAX_KEY_LENGTH = 255
@@ -143,7 +141,7 @@ def get_message_body(topic, *args, **kws):
 @callback(*[
     c for c in callbacks.keys()
     if c.startswith('post') and c not in [
-        'postImport', # This is kind of useless; also noisy.
+        'postImport',  # This is kind of useless; also noisy.
         # This one is special, and is called every time, so ignore it.
         # Added here https://pagure.io/koji/pull-request/148
         'postCommit',
@@ -188,12 +186,15 @@ def queue_message(cbtype, *args, **kws):
     # These fields are floating points which get json-encoded differently on
     # rhel and fedora.
     problem_fields = ['weight', 'start_ts', 'create_ts', 'completion_ts']
+
     def scrub(obj):
         if isinstance(obj, list):
             return [scrub(item) for item in obj]
         if isinstance(obj, dict):
             return dict([
-                (k, scrub(v)) for k, v in obj.items() if k not in problem_fields
+                (k, scrub(v))
+                for k, v in obj.items()
+                if k not in problem_fields
             ])
         return obj
 
@@ -211,6 +212,7 @@ def queue_message(cbtype, *args, **kws):
 @ignore_error
 def send_messages(cbtype, *args, **kws):
     messages = getattr(context, 'fedmsg_plugin_messages', [])
+
     for message in messages:
         try:
             msg = fedora_messaging.api.Message(
