@@ -232,7 +232,7 @@ def send_messages(cbtype, *args, **kws):
         try:
             msg = fedora_messaging.api.Message(
                 topic="buildsys.{}".format(message['topic']),
-                body=message['body']
+                body=message['msg']
             )
             fedora_messaging.api.publish(msg)
         except fedora_messaging.exceptions.PublishReturned as e:
