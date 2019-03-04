@@ -1,5 +1,7 @@
-# Koji callback for sending notifications about events to the fedmsg messagebus
-# Copyright (c) 2009-2012 Red Hat, Inc.
+# Koji callback for sending notifications about events to the fedmsg message bus
+# Copyright (c) 2009-2019 Red Hat, Inc.
+#
+# Source: https://pagure.io/koji-fedmsg-plugin/
 #
 # Authors:
 #     Ralph Bean <rbean@redhat.com>
