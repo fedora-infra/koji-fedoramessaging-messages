@@ -9,6 +9,7 @@
 
 import logging
 import re
+import time
 
 from koji.context import context
 from koji.plugin import callbacks
@@ -28,6 +29,13 @@ def camel_to_dots(name):
     return re.sub('([a-z0-9])([A-Z])', r'\1.\2', s1).lower()
 
 
+def serialize_datetime_in_task(task):
+    for date_key in ("completion_time", "create_time", "start_time"):
+        if task[date_key] is None:
+            continue
+        task[date_key] = time.mktime(task[date_key].timetuple())
+
+
 def get_message_body(topic, *args, **kws):
     msg = {}
 
@@ -45,10 +53,15 @@ def get_message_body(topic, *args, **kws):
         msg['update'] = kws.get('update', None)
     elif topic == 'task.state.change':
         info = kws['info']
+        serialize_datetime_in_task(info)
 
         # Stuff in information about descendant tasks
         task = kojihub.Task(info['id'])
-        info['children'] = task.getChildren()
+        info['children'] = []
+        for child_orig in task.getChildren():
+            child = child_orig.copy()
+            serialize_datetime_in_task(child)
+            info['children'].append(child)
 
         # Send the whole info dict along because it might have useful info.
         # For instance, it contains the mention of what format createAppliance
