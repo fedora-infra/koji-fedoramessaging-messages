@@ -242,10 +242,13 @@ def send_messages(cbtype, *args, **kws):
 
     for message in messages:
         try:
+            topic = "buildsys.{}".format(message['topic'])
             msg = fedora_messaging.api.Message(
-                topic="buildsys.{}".format(message['topic']),
+                topic=topic,
                 body=message['msg']
             )
+            log.info("Publishing message on topic {}".format(topic))
+            log.debug("Message body {}".format(message['msg']))
             fedora_messaging.api.publish(msg)
         except fedora_messaging.exceptions.PublishReturned as e:
             log.warning(
