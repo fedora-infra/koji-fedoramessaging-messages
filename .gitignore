@@ -2,3 +2,9 @@
 .venv
 # VS Code
 .vscode
+# python
+__pycache__
+*.egg-info
+
+#sphinx
+build
