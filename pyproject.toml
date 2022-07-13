@@ -19,7 +19,7 @@ homepage = "https://pagure.io/koji-fedmsg-plugin"
 
 [tool.poetry.dependencies]
 python = "^3.6"
-fedora_messaging = "^2.0.1"
+fedora_messaging = ">= 2.0.1, < 4.0.0"
 koji = "^1.20.1"
 
 [tool.poetry.dev-dependencies]
