@@ -1,4 +1,4 @@
-from koji_fedmsg_plugin.messages.tag import TagV1, UntagV1
+from koji_fedoramessaging_messages.tag import TagV1, UntagV1
 
 
 def test_tag_message():

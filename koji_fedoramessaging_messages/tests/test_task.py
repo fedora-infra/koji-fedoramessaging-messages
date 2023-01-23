@@ -1,4 +1,4 @@
-from koji_fedmsg_plugin.messages.task import TaskStateChangeV1
+from koji_fedoramessaging_messages.task import TaskStateChangeV1
 
 
 def test_task_state_change_message():

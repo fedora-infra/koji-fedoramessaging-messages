@@ -1,4 +1,4 @@
-from koji_fedmsg_plugin.messages.build import BuildStateChangeV1
+from koji_fedoramessaging_messages.build import BuildStateChangeV1
 
 
 def test_build_state_change_message():

@@ -1,4 +1,4 @@
-from koji_fedmsg_plugin.messages.rpm import SignV1
+from koji_fedoramessaging_messages.rpm import SignV1
 
 
 def test_rpm_sign_message():

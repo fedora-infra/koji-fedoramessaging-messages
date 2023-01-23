@@ -1,4 +1,4 @@
-from koji_fedmsg_plugin.messages.repo import DoneV1, InitV1
+from koji_fedoramessaging_messages.repo import DoneV1, InitV1
 
 
 def test_repo_done_message():

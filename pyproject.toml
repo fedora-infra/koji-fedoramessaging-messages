@@ -21,7 +21,14 @@ include = [
 ]
 
 [tool.poetry.plugins."fedora.messages"]
-"koji_fedoramessaging.new"="koji_fedoramessaging_messages.thing:NewThingV1"
+"koji_fedoramessaging.build.BuildStateChangeV1"="koji_fedoramessaging_messages.build:BuildStateChangeV1"
+"koji_fedoramessaging.package.ListChangeV1"="koji_fedoramessaging_messages.package:ListChangeV1"
+"koji_fedoramessaging.repo.DoneV1"="koji_fedoramessaging_messages.repo:DoneV1"
+"koji_fedoramessaging.repo.InitV1"="koji_fedoramessaging_messages.repo:InitV1"
+"koji_fedoramessaging.rpm.SignV1"="koji_fedoramessaging_messages.rpm:SignV1"
+"koji_fedoramessaging.tag.TagV1"="koji_fedoramessaging_messages.tag:TagV1"
+"koji_fedoramessaging.tag.UntagV1"="koji_fedoramessaging_messages.tag:UntagV1"
+"koji_fedoramessaging.task.TaskStateChangeV1"="koji_fedoramessaging_messages.task:TaskStateChangeV1"
 
 
 [tool.poetry.dependencies]

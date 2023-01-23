@@ -1,4 +1,4 @@
-from koji_fedmsg_plugin.messages.package import ListChangeV1
+from koji_fedoramessaging_messages.package import ListChangeV1
 
 
 def test_package_list_change_message1():
