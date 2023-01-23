@@ -28,7 +28,10 @@ def test_rpm_sign_message():
             "package_name": "wine",
             "extra": {
                 "source": {
-                    "original_url": "git+https://src.fedoraproject.org/rpms/wine.git#f83582e8bcf2cbd1eaf693356cfc24731ab85e3f"
+                    "original_url": (
+                        "git+https://src.fedoraproject.org/rpms/"
+                        "wine.git#f83582e8bcf2cbd1eaf693356cfc24731ab85e3f"
+                    )
                 }
             },
             "creation_time": 1584471219.0,
@@ -38,7 +41,10 @@ def test_rpm_sign_message():
             "id": 1478177,
             "build_id": 1478177,
             "epoch": None,
-            "source": "git+https://src.fedoraproject.org/rpms/wine.git#f83582e8bcf2cbd1eaf693356cfc24731ab85e3f",
+            "source": (
+                "git+https://src.fedoraproject.org/rpms/"
+                "wine.git#f83582e8bcf2cbd1eaf693356cfc24731ab85e3f"
+            ),
             "state": 1,
             "version": "5.4",
             "owner_id": 895,

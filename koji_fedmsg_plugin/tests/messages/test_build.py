@@ -10,7 +10,10 @@ def test_build_state_change_message():
         "task_id": 42561864,
         "attribute": "state",
         "request": [
-            "git+https://src.fedoraproject.org/rpms/chromium.git#5f8f367e482fe8e30711aea49bf2ecfd163d278f",
+            (
+                "git+https://src.fedoraproject.org/rpms/chromium.git#"
+                "5f8f367e482fe8e30711aea49bf2ecfd163d278f"
+            ),
             "rawhide",
             {},
         ],
