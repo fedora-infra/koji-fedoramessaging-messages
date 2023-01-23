@@ -1,0 +1,44 @@
+[tool.poetry]
+name = "koji-fedoramessaging-messages"
+version = "1.0.0"
+description = "A schema package for messages sent by the koji-fedoramessaging plugin"
+
+license = "GPL-3.0-or-later"
+
+authors = [
+  "Fedora Infrastructure Team <infrastructure@lists.fedoraproject.org>"
+]
+
+readme = 'README.md'  # Markdown files are supported
+
+repository = "https://github.com/fedora-infra/koji-fedoramessaging-messages"
+homepage = "https://github.com/fedora-infra/koji-fedoramessaging-messages"
+
+keywords = ['fedora']
+
+include = [
+    "tox.ini",
+]
+
+[tool.poetry.plugins."fedora.messages"]
+"koji_fedoramessaging.new"="koji_fedoramessaging_messages.thing:NewThingV1"
+
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fedora-messaging = ">=3.0.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.1.2"
+pytest-cov = "^3.0.0 || ^4.0.0"
+sphinx = "^3.0"
+mock = "^4.0"
+bandit = "^1.6"
+black = "^22.6.0"
+flake8 = ">=4,<7"
+poetry = "^1.2.0b2"
+
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

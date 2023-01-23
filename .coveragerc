@@ -1,0 +1,17 @@
+[run]
+branch = True
+source =
+    koji_fedoramessaging_messages
+
+[paths]
+source =
+   koji_fedoramessaging_messages
+   .tox/*/site-packages/koji_fedoramessaging_messages
+
+[report]
+fail_under = 100
+exclude_lines =
+    pragma: no cover
+    if __name__ == .__main__.:
+omit =
+    koji_fedoramessaging_messages/tests/*
