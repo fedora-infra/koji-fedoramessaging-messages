@@ -20,7 +20,7 @@ SCHEMA_URL = "https://koji-fedmsg-plugin.readthedocs.io/en/latest/_schema"
 
 
 class DoneV1(message.Message):
-    """ This message is sent when a package repo is done. """
+    """This message is sent when a package repo is done."""
 
     topic = "buildsys.repo.done"
 
@@ -35,7 +35,10 @@ class DoneV1(message.Message):
                 "description": "distinguish between messages from primary and secondary koji",
             },
             "repo_id": {"type": "integer", "description": "repo id"},
-            "tag": {"type": "string", "description": "tag used to generate the repo",},
+            "tag": {
+                "type": "string",
+                "description": "tag used to generate the repo",
+            },
             "tag_id": {
                 "type": "integer",
                 "description": "tag id of the tag used to generate the repo",
@@ -61,7 +64,7 @@ class DoneV1(message.Message):
 
 
 class InitV1(message.Message):
-    """ This message is sent when a package repo is initialized. """
+    """This message is sent when a package repo is initialized."""
 
     topic = "buildsys.repo.init"
 
@@ -76,7 +79,10 @@ class InitV1(message.Message):
                 "description": "distinguish between messages from primary and secondary koji.",
             },
             "repo_id": {"type": "integer", "description": "repo id"},
-            "tag": {"type": "string", "description": "tag used to generate the repo",},
+            "tag": {
+                "type": "string",
+                "description": "tag used to generate the repo",
+            },
             "tag_id": {
                 "type": "integer",
                 "description": "tag id of the tag used to generate the repo",

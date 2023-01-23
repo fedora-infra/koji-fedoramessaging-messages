@@ -19,7 +19,12 @@ def test_repo_done_message():
 
 def test_repo_init_message():
 
-    body = {"instance": "primary", "repo_id": 1410901, "tag": "f33-build", "tag_id": 18677}
+    body = {
+        "instance": "primary",
+        "repo_id": 1410901,
+        "tag": "f33-build",
+        "tag_id": 18677,
+    }
 
     msg = InitV1(body=body)
     msg.validate()

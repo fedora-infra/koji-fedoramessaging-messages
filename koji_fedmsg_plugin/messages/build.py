@@ -20,7 +20,7 @@ SCHEMA_URL = "https://koji-fedmsg-plugin.readthedocs.io/en/latest/_schema"
 
 
 class BuildStateChangeV1(message.Message):
-    """ This message is sent when a build state changes. """
+    """This message is sent when a build state changes."""
 
     topic = "buildsys.build.state.change"
 
@@ -32,9 +32,18 @@ class BuildStateChangeV1(message.Message):
         "properties": {
             "build_id": {"type": ["null", "integer"], "description": "build id"},
             "old": {"type": "integer", "description": "previous state"},
-            "name": {"type": "string", "description": "name of the package built",},
-            "task_id": {"type": ["null", "integer"], "description": "task id",},
-            "attribute": {"type": "string", "description": "attribute",},
+            "name": {
+                "type": "string",
+                "description": "name of the package built",
+            },
+            "task_id": {
+                "type": ["null", "integer"],
+                "description": "task id",
+            },
+            "attribute": {
+                "type": "string",
+                "description": "attribute",
+            },
             "request": {
                 "type": ["null", "array"],
                 "description": "build request details",
@@ -44,14 +53,26 @@ class BuildStateChangeV1(message.Message):
                 "type": "string",
                 "description": "distinguish between messages from primary and secondary koji",
             },
-            "epoch": {"type": ["null", "string", "integer"], "description": "epoch",},
-            "version": {"type": "string", "description": "version of the build",},
+            "epoch": {
+                "type": ["null", "string", "integer"],
+                "description": "epoch",
+            },
+            "version": {
+                "type": "string",
+                "description": "version of the build",
+            },
             "owner": {
                 "type": ["null", "integer", "string"],
                 "description": "name of the package owner",
             },
-            "new": {"type": "integer", "description": "new state",},
-            "release": {"type": "string", "description": "release number of the package",},
+            "new": {
+                "type": "integer",
+                "description": "new state",
+            },
+            "release": {
+                "type": "string",
+                "description": "release number of the package",
+            },
         },
     }
 

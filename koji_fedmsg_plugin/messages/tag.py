@@ -20,7 +20,7 @@ SCHEMA_URL = "https://koji-fedmsg-plugin.readthedocs.io/en/latest/_schema"
 
 
 class TagV1(message.Message):
-    """ This message is sent when a package is tagged. """
+    """This message is sent when a package is tagged."""
 
     topic = "buildsys.tag"
 
@@ -32,16 +32,34 @@ class TagV1(message.Message):
         "properties": {
             "build_id": {"type": "integer", "description": "build id"},
             "name": {"type": "string", "description": "package name"},
-            "tag_id": {"type": "integer", "description": "tag id",},
+            "tag_id": {
+                "type": "integer",
+                "description": "tag id",
+            },
             "instance": {
                 "type": "string",
                 "description": "distinguish between messages from primary and secondary koji",
             },
-            "tag": {"type": "string", "description": "name of the tag",},
-            "user": {"type": "string", "description": "name of the user that trigger the build",},
-            "version": {"type": "string", "description": "version of the build",},
-            "owner": {"type": "string", "description": "name of the package owner",},
-            "release": {"type": "string", "description": "release number of the package",},
+            "tag": {
+                "type": "string",
+                "description": "name of the tag",
+            },
+            "user": {
+                "type": "string",
+                "description": "name of the user that trigger the build",
+            },
+            "version": {
+                "type": "string",
+                "description": "version of the build",
+            },
+            "owner": {
+                "type": "string",
+                "description": "name of the package owner",
+            },
+            "release": {
+                "type": "string",
+                "description": "release number of the package",
+            },
         },
     }
 
@@ -83,7 +101,7 @@ class TagV1(message.Message):
 
 
 class UntagV1(message.Message):
-    """ This message is sent when a package is untagged. """
+    """This message is sent when a package is untagged."""
 
     topic = "buildsys.untag"
 
@@ -95,16 +113,34 @@ class UntagV1(message.Message):
         "properties": {
             "build_id": {"type": "integer", "description": "build id"},
             "name": {"type": "string", "description": "package name"},
-            "tag_id": {"type": "integer", "description": "tag id",},
+            "tag_id": {
+                "type": "integer",
+                "description": "tag id",
+            },
             "instance": {
                 "type": "string",
                 "description": "distinguish between messages from primary and secondary koji",
             },
-            "tag": {"type": "string", "description": "name of the tag",},
-            "user": {"type": "string", "description": "name of the user that trigger the build",},
-            "version": {"type": "string", "description": "version of the build",},
-            "owner": {"type": "string", "description": "name of the package owner",},
-            "release": {"type": "string", "description": "release number of the package",},
+            "tag": {
+                "type": "string",
+                "description": "name of the tag",
+            },
+            "user": {
+                "type": "string",
+                "description": "name of the user that trigger the build",
+            },
+            "version": {
+                "type": "string",
+                "description": "version of the build",
+            },
+            "owner": {
+                "type": "string",
+                "description": "name of the package owner",
+            },
+            "release": {
+                "type": "string",
+                "description": "release number of the package",
+            },
         },
     }
 

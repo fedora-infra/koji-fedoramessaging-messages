@@ -20,7 +20,7 @@ SCHEMA_URL = "https://koji-fedmsg-plugin.readthedocs.io/en/latest/_schema"
 
 
 class SignV1(message.Message):
-    """ This message is sent when a rpm is signed. """
+    """This message is sent when a rpm is signed."""
 
     topic = "buildsys.rpm.sign"
 
@@ -41,27 +41,72 @@ class SignV1(message.Message):
                 "properties": {
                     "build_id": {"type": "integer", "description": "koji build id"},
                     "name": {"type": "string", "description": "name of the rpm"},
-                    "extra": {"type": ["null", "string"], "description": "extra",},
-                    "arch": {"type": "string", "description": "build architecture",},
-                    "buildtime": {"type": "integer", "description": "build timestamp",},
-                    "id": {"type": "integer", "description": "id",},
-                    "epoch": {"type": ["null", "string", "integer"], "description": "epoch",},
-                    "version": {"type": "string", "description": "rpm version",},
-                    "metadata_only": {"type": "boolean", "description": "metadata only",},
-                    "external_repo_id": {"type": "integer", "description": "external repo id",},
-                    "release": {"type": "string", "description": "rpm release number",},
-                    "size": {"type": "integer", "description": "size",},
-                    "buildroot_id": {"type": "integer", "description": "buildroot id",},
-                    "external_repo_name": {"type": "string", "description": "external_repo_name",},
-                    "payloadhash": {"type": "string", "description": "payload hash",},
+                    "extra": {
+                        "type": ["null", "string"],
+                        "description": "extra",
+                    },
+                    "arch": {
+                        "type": "string",
+                        "description": "build architecture",
+                    },
+                    "buildtime": {
+                        "type": "integer",
+                        "description": "build timestamp",
+                    },
+                    "id": {
+                        "type": "integer",
+                        "description": "id",
+                    },
+                    "epoch": {
+                        "type": ["null", "string", "integer"],
+                        "description": "epoch",
+                    },
+                    "version": {
+                        "type": "string",
+                        "description": "rpm version",
+                    },
+                    "metadata_only": {
+                        "type": "boolean",
+                        "description": "metadata only",
+                    },
+                    "external_repo_id": {
+                        "type": "integer",
+                        "description": "external repo id",
+                    },
+                    "release": {
+                        "type": "string",
+                        "description": "rpm release number",
+                    },
+                    "size": {
+                        "type": "integer",
+                        "description": "size",
+                    },
+                    "buildroot_id": {
+                        "type": "integer",
+                        "description": "buildroot id",
+                    },
+                    "external_repo_name": {
+                        "type": "string",
+                        "description": "external_repo_name",
+                    },
+                    "payloadhash": {
+                        "type": "string",
+                        "description": "payload hash",
+                    },
                 },
             },
             "build": {
                 "type": "object",
                 "description": "build details",
                 "properties": {
-                    "cg_id": {"type": ["null", "integer", "string"], "description": "cg id",},
-                    "package_name": {"type": "string", "description": "package name",},
+                    "cg_id": {
+                        "type": ["null", "integer", "string"],
+                        "description": "cg id",
+                    },
+                    "package_name": {
+                        "type": "string",
+                        "description": "package name",
+                    },
                     "extra": {
                         "type": "object",
                         "description": "extra",
@@ -78,33 +123,96 @@ class SignV1(message.Message):
                             },
                         },
                     },
-                    "creation_time": {"type": "number", "description": "koji build creation time",},
+                    "creation_time": {
+                        "type": "number",
+                        "description": "koji build creation time",
+                    },
                     "completion_time": {
                         "type": "number",
                         "description": "koji build completion time",
                     },
-                    "package_id": {"type": "integer", "description": "package id",},
-                    "cg_name": {"type": ["null", "integer", "string"], "description": "cg name",},
-                    "id": {"type": "integer", "description": "id",},
-                    "build_id": {"type": "integer", "description": "build id",},
-                    "epoch": {"type": ["null", "integer", "string"], "description": "epoch",},
-                    "source": {"type": "string", "description": "dist git url",},
-                    "state": {"type": "integer", "description": "koji build state",},
-                    "version": {"type": "string", "description": "rpm version",},
-                    "owner_id": {"type": "integer", "description": "owner id",},
-                    "owner_name": {"type": "string", "description": "owner name",},
-                    "nvr": {"type": "string", "description": "rpm name version release",},
-                    "start_time": {"type": "integer", "description": "build start time",},
-                    "creation_event_id": {"type": "integer", "description": "creation event id",},
-                    "volume_id": {"type": "integer", "description": "volume id",},
-                    "creation_ts": {"type": "number", "description": "creation timestamp",},
-                    "name": {"type": "string", "description": "name",},
-                    "task_id": {"type": "integer", "description": "koji task id",},
-                    "volume_name": {"type": "string", "description": "volume name",},
-                    "release": {"type": "string", "description": "rpm release number",},
+                    "package_id": {
+                        "type": "integer",
+                        "description": "package id",
+                    },
+                    "cg_name": {
+                        "type": ["null", "integer", "string"],
+                        "description": "cg name",
+                    },
+                    "id": {
+                        "type": "integer",
+                        "description": "id",
+                    },
+                    "build_id": {
+                        "type": "integer",
+                        "description": "build id",
+                    },
+                    "epoch": {
+                        "type": ["null", "integer", "string"],
+                        "description": "epoch",
+                    },
+                    "source": {
+                        "type": "string",
+                        "description": "dist git url",
+                    },
+                    "state": {
+                        "type": "integer",
+                        "description": "koji build state",
+                    },
+                    "version": {
+                        "type": "string",
+                        "description": "rpm version",
+                    },
+                    "owner_id": {
+                        "type": "integer",
+                        "description": "owner id",
+                    },
+                    "owner_name": {
+                        "type": "string",
+                        "description": "owner name",
+                    },
+                    "nvr": {
+                        "type": "string",
+                        "description": "rpm name version release",
+                    },
+                    "start_time": {
+                        "type": "integer",
+                        "description": "build start time",
+                    },
+                    "creation_event_id": {
+                        "type": "integer",
+                        "description": "creation event id",
+                    },
+                    "volume_id": {
+                        "type": "integer",
+                        "description": "volume id",
+                    },
+                    "creation_ts": {
+                        "type": "number",
+                        "description": "creation timestamp",
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "name",
+                    },
+                    "task_id": {
+                        "type": "integer",
+                        "description": "koji task id",
+                    },
+                    "volume_name": {
+                        "type": "string",
+                        "description": "volume name",
+                    },
+                    "release": {
+                        "type": "string",
+                        "description": "rpm release number",
+                    },
                 },
             },
-            "sighash": {"type": "string", "description": "signing hash",},
+            "sighash": {
+                "type": "string",
+                "description": "signing hash",
+            },
         },
     }
 

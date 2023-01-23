@@ -20,7 +20,7 @@ SCHEMA_URL = "https://koji-fedmsg-plugin.readthedocs.io/en/latest/_schema"
 
 
 class ListChangeV1(message.Message):
-    """ This message is sent when a package list changes. """
+    """This message is sent when a package list changes."""
 
     topic = "buildsys.package.list.change"
 
@@ -36,11 +36,26 @@ class ListChangeV1(message.Message):
                 "description": "distinguish between messages from primary and secondary koji",
             },
             "extra_arches": {"type": ["null", "string"], "description": "extra arches"},
-            "package": {"type": "string", "description": "name of the package updated",},
-            "update": {"type": ["null", "boolean"], "description": "update",},
-            "owner": {"type": ["null", "string"], "description": "name of the package owner",},
-            "tag": {"type": "string", "description": "name of the tag",},
-            "action": {"type": "string", "description": "name of the action",},
+            "package": {
+                "type": "string",
+                "description": "name of the package updated",
+            },
+            "update": {
+                "type": ["null", "boolean"],
+                "description": "update",
+            },
+            "owner": {
+                "type": ["null", "string"],
+                "description": "name of the package owner",
+            },
+            "tag": {
+                "type": "string",
+                "description": "name of the tag",
+            },
+            "action": {
+                "type": "string",
+                "description": "name of the action",
+            },
             "block": {"type": ["null", "boolean"], "description": "block"},
         },
     }
