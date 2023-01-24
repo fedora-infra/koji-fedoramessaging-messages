@@ -43,6 +43,10 @@ class DoneV1(KojiFedoraMessagingMessage):
             },
         },
     }
+    
+    @property
+    def owner(self):
+        return None
 
     @property
     def instance(self) -> str:
@@ -87,6 +91,10 @@ class InitV1(KojiFedoraMessagingMessage):
             },
         },
     }
+
+    @property
+    def owner(self):
+        return None
 
     @property
     def instance(self) -> str:

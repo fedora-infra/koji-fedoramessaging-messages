@@ -16,30 +16,7 @@ from koji_fedoramessaging_messages.build import BuildStateChangeV1
 
 
 def test_base():
-
-    body = {
-        "build_id": 1478312,
-        "old": 0,
-        "name": "chromium",
-        "task_id": 42561864,
-        "attribute": "state",
-        "request": [
-            (
-                "git+https://src.fedoraproject.org/rpms/chromium.git#"
-                "5f8f367e482fe8e30711aea49bf2ecfd163d278f"
-            ),
-            "rawhide",
-            {},
-        ],
-        "instance": "primary",
-        "epoch": None,
-        "version": "80.0.3987.132",
-        "owner": "spot",
-        "new": 1,
-        "release": "1.fc33",
-    }
-
-    msg = BuildStateChangeV1(body=body)
-    msg.validate()
+    msg = BuildStateChangeV1(body={})
     assert msg.app_name == "koji"
     assert msg.app_icon == "https://apps.fedoraproject.org/img/icons/koji.png"
+    assert msg.agent_name == None

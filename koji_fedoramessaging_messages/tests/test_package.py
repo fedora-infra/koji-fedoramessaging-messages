@@ -53,3 +53,5 @@ def test_package_list_change_message2():
     assert not msg.block
     assert msg.instance == "primary"
     assert msg.extra_arches == ""
+
+    assert msg.agent_name == "releng"

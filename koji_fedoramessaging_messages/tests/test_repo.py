@@ -17,6 +17,10 @@ def test_repo_done_message():
     assert msg.tag_id == 20164
     assert msg.repo_id == 1409150
 
+    assert msg.owner == None
+    assert msg.agent_name == None
+    assert msg.agent_avatar == None
+
 
 def test_repo_init_message():
 
@@ -33,3 +37,7 @@ def test_repo_init_message():
     assert msg.tag == "f33-build"
     assert msg.tag_id == 18677
     assert msg.repo_id == 1410901
+
+    assert msg.owner == None
+    assert msg.agent_name == None
+    assert msg.agent_avatar == None

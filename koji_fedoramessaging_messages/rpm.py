@@ -215,6 +215,13 @@ class SignV1(KojiFedoraMessagingMessage):
     }
 
     @property
+    def owner(self):
+        try:
+            return self.body["build"]["owner_name"]
+        except KeyError:
+            return None
+
+    @property
     def instance(self) -> str:
         return self.body["instance"]
 

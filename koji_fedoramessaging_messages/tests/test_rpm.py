@@ -69,3 +69,7 @@ def test_rpm_sign_message():
     assert msg.build["package_name"] == "wine"
     assert msg.instance == "primary"
     assert msg.sighash == "a1957f36d34d29c105f16aae79b19e85"
+
+    assert msg.owner == "mooninite"
+    assert msg.agent_name == "mooninite"
+    assert msg.agent_avatar == "https://seccdn.libravatar.org/avatar/b996efd4f3bf93c5742cff6bd450af2fb0dc9525409d922bb448d22237bd5047?s=64&d=retro"

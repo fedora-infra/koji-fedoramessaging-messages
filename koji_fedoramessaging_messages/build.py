@@ -61,7 +61,7 @@ class BuildStateChangeV1(KojiFedoraMessagingMessage):
             },
             "owner": {
                 "type": ["null", "integer", "string"],
-                "description": "name of the package owner",
+                "description": "the owner of the build",
             },
             "new": {
                 "type": "integer",
@@ -76,23 +76,23 @@ class BuildStateChangeV1(KojiFedoraMessagingMessage):
 
     @property
     def build_id(self) -> Optional[int]:
-        return self.body["build_id"]
+        return self.body.get("build_id")
 
     @property
     def old(self) -> int:
-        return self.body["old"]
+        return self.body.get("old")
 
     @property
     def name(self) -> str:
-        return self.body["name"]
+        return self.body.get("name")
 
     @property
     def task_id(self) -> Optional[int]:
-        return self.body["task_id"]
+        return self.body.get("task_id")
 
     @property
     def attribute(self) -> str:
-        return self.body["attribute"]
+        return self.body.get("attribute")
 
     @property
     def request(self) -> Optional[List]:
@@ -108,7 +108,7 @@ class BuildStateChangeV1(KojiFedoraMessagingMessage):
 
     @property
     def owner(self) -> str:
-        return self.body["owner"]
+        return self.body.get("owner")
 
     @property
     def new(self) -> int:
