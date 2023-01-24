@@ -14,12 +14,10 @@
 """Define schema for fedora messages sent by koji"""
 
 
-from fedora_messaging import message
-
-SCHEMA_URL = "https://koji-fedmsg-plugin.readthedocs.io/en/latest/_schema"
+from .base import KojiFedoraMessagingMessage, SCHEMA_URL
 
 
-class TaskStateChangeV1(message.Message):
+class TaskStateChangeV1(KojiFedoraMessagingMessage):
     """This message is sent when a task state changes."""
 
     topic = "buildsys.task.state.change"

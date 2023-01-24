@@ -14,12 +14,10 @@
 """Define schema for fedora messages sent by koji"""
 
 
-from fedora_messaging import message
-
-SCHEMA_URL = "https://koji-fedmsg-plugin.readthedocs.io/en/latest/_schema"
+from .base import KojiFedoraMessagingMessage, SCHEMA_URL
 
 
-class TagV1(message.Message):
+class TagV1(KojiFedoraMessagingMessage):
     """This message is sent when a package is tagged."""
 
     topic = "buildsys.tag"
@@ -100,7 +98,7 @@ class TagV1(message.Message):
         return self.body["release"]
 
 
-class UntagV1(message.Message):
+class UntagV1(KojiFedoraMessagingMessage):
     """This message is sent when a package is untagged."""
 
     topic = "buildsys.untag"

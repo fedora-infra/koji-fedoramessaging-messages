@@ -18,7 +18,6 @@ def test_repo_done_message():
     assert msg.repo_id == 1409150
 
 
-
 def test_repo_init_message():
 
     body = {

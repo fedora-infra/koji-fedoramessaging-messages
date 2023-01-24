@@ -14,12 +14,10 @@
 """Define schema for fedora messages sent by koji"""
 
 
-from fedora_messaging import message
-
-SCHEMA_URL = "https://koji-fedmsg-plugin.readthedocs.io/en/latest/_schema"
+from .base import KojiFedoraMessagingMessage, SCHEMA_URL
 
 
-class SignV1(message.Message):
+class SignV1(KojiFedoraMessagingMessage):
     """This message is sent when a rpm is signed."""
 
     topic = "buildsys.rpm.sign"
