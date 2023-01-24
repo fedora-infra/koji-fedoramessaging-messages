@@ -20,6 +20,12 @@ def test_tag_message():
     assert msg.build_id == 1457909
     assert msg.name == "http-parser"
     assert msg.tag == "f31-updates-pending"
+    assert msg.tag_id == 6446
+    assert msg.instance == "primary"
+    assert msg.user == "bodhi"
+    assert msg.owner == "sgallagh"
+    assert msg.version == "2.9.3"
+    assert msg.release == "1.fc31"
 
 
 def test_untag_message():
@@ -41,3 +47,9 @@ def test_untag_message():
     assert msg.build_id == 1478431
     assert msg.name == "python-twisted"
     assert msg.tag == "epel8-signing-pending"
+    assert msg.tag_id == 10321
+    assert msg.instance == "primary"
+    assert msg.user == "autopen"
+    assert msg.owner == "eclipseo"
+    assert msg.version == "19.10.0"
+    assert msg.release == "2.el8"

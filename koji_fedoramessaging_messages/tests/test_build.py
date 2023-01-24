@@ -34,3 +34,8 @@ def test_build_state_change_message():
     assert msg.release == "1.fc33"
     assert msg.old == 0
     assert msg.new == 1
+    assert msg.task_id == 42561864
+    assert msg.attribute == "state"
+    assert msg.request == body["request"]
+    assert msg.instance == "primary"
+    assert msg.epoch is None

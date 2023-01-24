@@ -9,7 +9,7 @@ source =
    .tox/*/site-packages/koji_fedoramessaging_messages
 
 [report]
-fail_under = 87
+fail_under = 100
 exclude_lines =
     pragma: no cover
     if __name__ == .__main__.:

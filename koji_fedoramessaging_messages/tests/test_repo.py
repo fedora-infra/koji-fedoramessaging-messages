@@ -15,6 +15,8 @@ def test_repo_done_message():
     assert msg.instance == "primary"
     assert msg.tag == "module-jmc-latest-3220200311144307-089fddd9-build"
     assert msg.tag_id == 20164
+    assert msg.repo_id == 1409150
+
 
 
 def test_repo_init_message():
@@ -30,3 +32,5 @@ def test_repo_init_message():
     msg.validate()
     assert msg.instance == "primary"
     assert msg.tag == "f33-build"
+    assert msg.tag_id == 18677
+    assert msg.repo_id == 1410901

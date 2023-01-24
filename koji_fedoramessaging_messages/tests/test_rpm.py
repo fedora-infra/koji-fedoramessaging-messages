@@ -67,3 +67,5 @@ def test_rpm_sign_message():
     assert msg.sigkey == "12c944d0"
     assert msg.rpm["name"] == "wine-opencl-debuginfo"
     assert msg.build["package_name"] == "wine"
+    assert msg.instance == "primary"
+    assert msg.sighash == "a1957f36d34d29c105f16aae79b19e85"

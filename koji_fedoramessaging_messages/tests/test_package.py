@@ -24,6 +24,8 @@ def test_package_list_change_message1():
     assert msg.action == "unblock"
     assert msg.tag == "f31"
     assert msg.block is None
+    assert msg.instance == "primary"
+    assert msg.extra_arches is None
 
 
 def test_package_list_change_message2():
@@ -49,3 +51,5 @@ def test_package_list_change_message2():
     assert msg.action == "add"
     assert msg.tag == "f31-build-side-20267"
     assert not msg.block
+    assert msg.instance == "primary"
+    assert msg.extra_arches == ""
