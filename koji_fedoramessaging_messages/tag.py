@@ -63,39 +63,39 @@ class TagV1(KojiFedoraMessagingMessage):
 
     @property
     def build_id(self) -> int:
-        return self.body["build_id"]
+        return self.body.get("build_id")
 
     @property
     def name(self) -> str:
-        return self.body["name"]
+        return self.body.get("name")
 
     @property
     def tag_id(self) -> int:
-        return self.body["tag_id"]
+        return self.body.get("tag_id")
 
     @property
     def instance(self) -> str:
-        return self.body["instance"]
+        return self.body.get("instance")
 
     @property
     def tag(self) -> str:
-        return self.body["tag"]
+        return self.body.get("tag")
 
     @property
     def user(self) -> str:
-        return self.body["user"]
+        return self.body.get("user")
 
     @property
     def version(self) -> str:
-        return self.body["version"]
+        return self.body.get("version")
 
     @property
     def owner(self) -> str:
-        return self.body["owner"]
+        return self.body.get("owner")
 
     @property
     def release(self) -> str:
-        return self.body["release"]
+        return self.body.get("release")
 
 
 class UntagV1(KojiFedoraMessagingMessage):
@@ -144,39 +144,39 @@ class UntagV1(KojiFedoraMessagingMessage):
 
     @property
     def build_id(self) -> int:
-        return self.body["build_id"]
+        return self.body.get("build_id")
 
     @property
     def name(self) -> str:
-        return self.body["name"]
+        return self.body.get("name")
 
     @property
     def tag_id(self) -> int:
-        return self.body["tag_id"]
+        return self.body.get("tag_id")
 
     @property
     def instance(self) -> str:
-        return self.body["instance"]
+        return self.body.get("instance")
 
     @property
     def tag(self) -> str:
-        return self.body["tag"]
+        return self.body.get("tag")
 
     @property
     def user(self) -> str:
-        return self.body["user"]
+        return self.body.get("user")
 
     @property
     def version(self) -> str:
-        return self.body["version"]
+        return self.body.get("version")
 
     @property
     def owner(self) -> str:
-        return self.body["owner"]
+        return self.body.get("owner")
 
     @property
     def release(self) -> str:
-        return self.body["release"]
+        return self.body.get("release")
     
     @property
     def agent_name(self):

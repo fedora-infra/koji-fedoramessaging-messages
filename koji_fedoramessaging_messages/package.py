@@ -60,36 +60,36 @@ class ListChangeV1(KojiFedoraMessagingMessage):
 
     @property
     def force(self) -> Optional[bool]:
-        return self.body["force"]
+        return self.body.get("force")
 
     @property
     def instance(self) -> str:
-        return self.body["instance"]
+        return self.body.get("instance")
 
     @property
     def extra_arches(self) -> Optional[str]:
-        return self.body["extra_arches"]
+        return self.body.get("extra_arches")
 
     @property
     def package(self) -> str:
-        return self.body["package"]
+        return self.body.get("package")
 
     @property
     def update(self) -> Optional[bool]:
-        return self.body["update"]
+        return self.body.get("update")
 
     @property
     def owner(self) -> Optional[str]:
-        return self.body["owner"]
+        return self.body.get("owner")
 
     @property
     def tag(self) -> str:
-        return self.body["tag"]
+        return self.body.get("tag")
 
     @property
     def action(self) -> str:
-        return self.body["action"]
+        return self.body.get("action")
 
     @property
     def block(self) -> Optional[bool]:
-        return self.body["block"]
+        return self.body.get("block")

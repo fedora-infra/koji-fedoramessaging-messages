@@ -50,19 +50,19 @@ class DoneV1(KojiFedoraMessagingMessage):
 
     @property
     def instance(self) -> str:
-        return self.body["instance"]
+        return self.body.get("instance")
 
     @property
     def repo_id(self) -> int:
-        return self.body["repo_id"]
+        return self.body.get("repo_id")
 
     @property
     def tag(self) -> str:
-        return self.body["tag"]
+        return self.body.get("tag")
 
     @property
     def tag_id(self) -> int:
-        return self.body["tag_id"]
+        return self.body.get("tag_id")
 
 
 class InitV1(KojiFedoraMessagingMessage):
@@ -98,16 +98,16 @@ class InitV1(KojiFedoraMessagingMessage):
 
     @property
     def instance(self) -> str:
-        return self.body["instance"]
+        return self.body.get("instance")
 
     @property
     def repo_id(self) -> int:
-        return self.body["repo_id"]
+        return self.body.get("repo_id")
 
     @property
     def tag(self) -> str:
-        return self.body["tag"]
+        return self.body.get("tag")
 
     @property
     def tag_id(self) -> int:
-        return self.body["tag_id"]
+        return self.body.get("tag_id")

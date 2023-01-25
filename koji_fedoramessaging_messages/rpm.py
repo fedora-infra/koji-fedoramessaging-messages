@@ -223,20 +223,20 @@ class SignV1(KojiFedoraMessagingMessage):
 
     @property
     def instance(self) -> str:
-        return self.body["instance"]
+        return self.body.get("instance")
 
     @property
     def sigkey(self) -> str:
-        return self.body["sigkey"]
+        return self.body.get("sigkey")
 
     @property
     def rpm(self) -> dict:
-        return self.body["rpm"]
+        return self.body.get("rpm")
 
     @property
     def build(self) -> dict:
-        return self.body["build"]
+        return self.body.get("build")
 
     @property
     def sighash(self) -> str:
-        return self.body["sighash"]
+        return self.body.get("sighash")

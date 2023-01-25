@@ -138,36 +138,36 @@ class TaskStateChangeV1(KojiFedoraMessagingMessage):
 
     @property
     def info(self) -> dict:
-        return self.body["info"]
+        return self.body.get("info")
 
     @property
     def old(self) -> str:
-        return self.body["old"]
+        return self.body.get("old")
 
     @property
     def attribute(self) -> str:
-        return self.body["attribute"]
+        return self.body.get("attribute")
 
     @property
     def id(self) -> int:
-        return self.body["id"]
+        return self.body.get("id")
 
     @property
     def instance(self) -> str:
-        return self.body["instance"]
+        return self.body.get("instance")
 
     @property
     def owner(self) -> str:
-        return self.body["owner"]
+        return self.body.get("owner")
 
     @property
     def new(self) -> str:
-        return self.body["new"]
+        return self.body.get("new")
 
     @property
     def srpm(self) -> str:
-        return self.body["srpm"]
+        return self.body.get("srpm")
 
     @property
     def method(self) -> str:
-        return self.body["method"]
+        return self.body.get("method")
