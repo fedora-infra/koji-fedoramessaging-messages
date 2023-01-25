@@ -28,7 +28,11 @@ def test_tag_message():
     assert msg.release == "1.fc31"
 
     assert msg.agent_name == "sgallagh"
-    assert msg.agent_avatar == "https://seccdn.libravatar.org/avatar/0929fed032bd0a481ef74c46023fefe443f3d1b72dbe3efd293b25ed4fc843fd?s=64&d=retro"
+    assert msg.agent_avatar == (
+        "https://seccdn.libravatar.org/avatar/0929fed032bd0a481ef74"
+        "c46023fefe443f3d1b72dbe3efd293b25ed4fc843fd?s=64&d=retro"
+    )
+
 
 def test_untag_message():
 
@@ -55,5 +59,3 @@ def test_untag_message():
     assert msg.owner == "eclipseo"
     assert msg.version == "19.10.0"
     assert msg.release == "2.el8"
-
-    

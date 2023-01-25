@@ -177,11 +177,11 @@ class UntagV1(KojiFedoraMessagingMessage):
     @property
     def release(self) -> str:
         return self.body.get("release")
-    
+
     @property
     def agent_name(self):
         return self.user
-    
+
     @property
     def usernames(self):
         return [self.agent_name, self.owner]

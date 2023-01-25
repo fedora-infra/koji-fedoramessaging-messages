@@ -19,4 +19,4 @@ def test_base():
     msg = BuildStateChangeV1(body={})
     assert msg.app_name == "koji"
     assert msg.app_icon == "https://apps.fedoraproject.org/img/icons/koji.png"
-    assert msg.agent_name == None
+    assert msg.agent_name is None

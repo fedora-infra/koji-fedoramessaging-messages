@@ -43,7 +43,7 @@ class DoneV1(KojiFedoraMessagingMessage):
             },
         },
     }
-    
+
     @property
     def owner(self):
         return None

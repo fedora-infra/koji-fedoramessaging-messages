@@ -39,5 +39,5 @@ def test_build_state_change_message():
     assert msg.request == body["request"]
     assert msg.instance == "primary"
     assert msg.epoch is None
-    
+
     assert msg.agent_name == "spot"

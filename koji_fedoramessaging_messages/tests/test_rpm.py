@@ -72,4 +72,7 @@ def test_rpm_sign_message():
 
     assert msg.owner == "mooninite"
     assert msg.agent_name == "mooninite"
-    assert msg.agent_avatar == "https://seccdn.libravatar.org/avatar/b996efd4f3bf93c5742cff6bd450af2fb0dc9525409d922bb448d22237bd5047?s=64&d=retro"
+    assert msg.agent_avatar == (
+        "https://seccdn.libravatar.org/avatar/b996efd4f3bf93c"
+        "5742cff6bd450af2fb0dc9525409d922bb448d22237bd5047?s=64&d=retro"
+    )
