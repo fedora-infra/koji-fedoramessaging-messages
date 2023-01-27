@@ -57,3 +57,6 @@ class KojiFedoraMessagingMessage(message.Message):
             return [self.agent_name]
         else:
             return []
+
+    def __str__(self):
+        return self.summary

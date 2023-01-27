@@ -119,3 +119,6 @@ def test_task_state_change_message():
     assert msg.instance == "primary"
     assert msg.owner == "koschei"
     assert msg.srpm == "libfreehand-0.1.2-6.fc32.src.rpm"
+    assert (
+        msg.summary == "Task CLOSED -- build (libfreehand-0.1.2-6.fc32.src.rpm noarch)"
+    )

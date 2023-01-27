@@ -169,5 +169,13 @@ class TaskStateChangeV1(KojiFedoraMessagingMessage):
         return self.body.get("srpm")
 
     @property
+    def arch(self) -> str:
+        return self.info.get("arch")
+
+    @property
     def method(self) -> str:
         return self.body.get("method")
+
+    @property
+    def summary(self):
+        return f"Task {self.new} -- {self.method or ''} ({self.srpm or ''} {self.arch or ''})"
