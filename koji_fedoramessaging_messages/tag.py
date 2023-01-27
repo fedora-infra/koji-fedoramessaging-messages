@@ -90,11 +90,16 @@ class TagMessage(KojiFedoraMessagingMessage):
     def release(self) -> str:
         return self.body.get("release")
 
+    @property
+    def summary(self) -> str:
+        return f"{self.name}-{self.version}-{self.release} was {self._summary_action} {self.tag}"
+
 
 class TagV1(TagMessage):
     """This message is sent when a package is tagged."""
 
     topic = "buildsys.tag"
+    _summary_action = "tagged into"
     body_schema = {
         "$id": f"{SCHEMA_URL}/v1/{topic}#",
         "$schema": "https://json-schema.org/draft/2019-09/schema",
@@ -108,6 +113,7 @@ class UntagV1(TagMessage):
     """This message is sent when a package is untagged."""
 
     topic = "buildsys.untag"
+    _summary_action = "untagged from"
     body_schema = {
         "$id": f"{SCHEMA_URL}/v1/{topic}#",
         "$schema": "https://json-schema.org/draft/2019-09/schema",

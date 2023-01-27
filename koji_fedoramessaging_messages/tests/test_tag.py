@@ -32,6 +32,7 @@ def test_tag_message():
         "https://seccdn.libravatar.org/avatar/0929fed032bd0a481ef74"
         "c46023fefe443f3d1b72dbe3efd293b25ed4fc843fd?s=64&d=retro"
     )
+    assert msg.summary == "http-parser-2.9.3-1.fc31 was tagged into f31-updates-pending"
 
 
 def test_untag_message():
@@ -59,3 +60,7 @@ def test_untag_message():
     assert msg.owner == "eclipseo"
     assert msg.version == "19.10.0"
     assert msg.release == "2.el8"
+    assert (
+        msg.summary
+        == "python-twisted-19.10.0-2.el8 was untagged from epel8-signing-pending"
+    )
