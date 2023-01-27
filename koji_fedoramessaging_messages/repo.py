@@ -16,8 +16,49 @@
 
 from .base import KojiFedoraMessagingMessage, SCHEMA_URL
 
+REPO = {
+    "type": "object",
+    "properties": {
+        "instance": {
+            "type": "string",
+            "description": "distinguish between messages from primary and secondary koji",
+        },
+        "repo_id": {"type": "integer", "description": "repo id"},
+        "tag": {
+            "type": "string",
+            "description": "tag used to generate the repo",
+        },
+        "tag_id": {
+            "type": "integer",
+            "description": "tag id of the tag used to generate the repo",
+        },
+    },
+}
 
-class DoneV1(KojiFedoraMessagingMessage):
+
+class RepoMessage(KojiFedoraMessagingMessage):
+    @property
+    def owner(self):
+        return None
+
+    @property
+    def instance(self) -> str:
+        return self.body.get("instance")
+
+    @property
+    def repo_id(self) -> int:
+        return self.body.get("repo_id")
+
+    @property
+    def tag(self) -> str:
+        return self.body.get("tag")
+
+    @property
+    def tag_id(self) -> int:
+        return self.body.get("tag_id")
+
+
+class DoneV1(RepoMessage):
     """This message is sent when a package repo is done."""
 
     topic = "buildsys.repo.done"
@@ -27,45 +68,11 @@ class DoneV1(KojiFedoraMessagingMessage):
         "$schema": "https://json-schema.org/draft/2019-09/schema",
         "description": "A package repo task was done.",
         "type": "object",
-        "properties": {
-            "instance": {
-                "type": "string",
-                "description": "distinguish between messages from primary and secondary koji",
-            },
-            "repo_id": {"type": "integer", "description": "repo id"},
-            "tag": {
-                "type": "string",
-                "description": "tag used to generate the repo",
-            },
-            "tag_id": {
-                "type": "integer",
-                "description": "tag id of the tag used to generate the repo",
-            },
-        },
+        "properties": REPO,
     }
 
-    @property
-    def owner(self):
-        return None
 
-    @property
-    def instance(self) -> str:
-        return self.body.get("instance")
-
-    @property
-    def repo_id(self) -> int:
-        return self.body.get("repo_id")
-
-    @property
-    def tag(self) -> str:
-        return self.body.get("tag")
-
-    @property
-    def tag_id(self) -> int:
-        return self.body.get("tag_id")
-
-
-class InitV1(KojiFedoraMessagingMessage):
+class InitV1(RepoMessage):
     """This message is sent when a package repo is initialized."""
 
     topic = "buildsys.repo.init"
@@ -75,39 +82,5 @@ class InitV1(KojiFedoraMessagingMessage):
         "$schema": "https://json-schema.org/draft/2019-09/schema",
         "description": "A package repo task is initialized.",
         "type": "object",
-        "properties": {
-            "instance": {
-                "type": "string",
-                "description": "distinguish between messages from primary and secondary koji.",
-            },
-            "repo_id": {"type": "integer", "description": "repo id"},
-            "tag": {
-                "type": "string",
-                "description": "tag used to generate the repo",
-            },
-            "tag_id": {
-                "type": "integer",
-                "description": "tag id of the tag used to generate the repo",
-            },
-        },
+        "properties": REPO,
     }
-
-    @property
-    def owner(self):
-        return None
-
-    @property
-    def instance(self) -> str:
-        return self.body.get("instance")
-
-    @property
-    def repo_id(self) -> int:
-        return self.body.get("repo_id")
-
-    @property
-    def tag(self) -> str:
-        return self.body.get("tag")
-
-    @property
-    def tag_id(self) -> int:
-        return self.body.get("tag_id")
