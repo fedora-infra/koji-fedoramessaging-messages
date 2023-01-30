@@ -12,7 +12,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """Define schema for fedora messages sent by koji"""
-from typing import Optional
+from typing import Optional, List
 
 from .base import KojiFedoraMessagingMessage, SCHEMA_URL
 
@@ -97,3 +97,7 @@ class ListChangeV1(KojiFedoraMessagingMessage):
     @property
     def summary(self):
         return f"Package list change for {self.package}:  {self.tag}"
+
+    @property
+    def packages(self) -> List[str]:
+        return [self.package] if self.package else []

@@ -99,6 +99,10 @@ class TagMessage(KojiFedoraMessagingMessage):
     def packages(self) -> List[str]:
         return [self.name] if self.name else []
 
+    @property
+    def usernames(self) -> List[str]:
+        return [name for name in (self.agent_name, self.owner) if name is not None]
+
 
 class TagV1(TagMessage):
     """This message is sent when a package is tagged."""
