@@ -30,7 +30,7 @@ class KojiFedoraMessagingMessage(message.Message):
 
     @property
     def app_name(self):
-        return "koji"
+        return "Koji"
 
     @property
     def app_icon(self):
