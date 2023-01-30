@@ -13,6 +13,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """Define schema for fedora messages sent by koji"""
 
+from typing import List
 
 from .base import KojiFedoraMessagingMessage, SCHEMA_URL
 
@@ -191,7 +192,7 @@ class SignV1(KojiFedoraMessagingMessage):
                     },
                     "name": {
                         "type": "string",
-                        "description": "name",
+                        "description": "name",   # That's not a very informative description
                     },
                     "task_id": {
                         "type": "integer",
@@ -247,6 +248,11 @@ class SignV1(KojiFedoraMessagingMessage):
             return self.body["build"]["name"]
         except KeyError:
             return None
+
+    @property
+    def agent_name(self) -> str:
+        # It seems safe to assume that the build owner is also the initiator of the signing action.
+        return self.owner
 
     @property
     def summary(self) -> str:

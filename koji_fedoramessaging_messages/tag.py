@@ -100,6 +100,11 @@ class TagMessage(KojiFedoraMessagingMessage):
         return [self.name] if self.name else []
 
     @property
+    def agent_name(self) -> str:
+        # This looks like it's the action initiator, no? Seems more correct than the owner.
+        return self.user
+
+    @property
     def usernames(self) -> List[str]:
         return [name for name in (self.agent_name, self.owner) if name is not None]
 

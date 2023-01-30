@@ -41,6 +41,9 @@ class KojiFedoraMessagingMessage(message.Message):
 
     @property
     def agent_name(self):
+        # This seems wrong: actions on a package aren't always triggered by the package owner, no?
+        # If we're not sure who initiated the action, it's better to have agent_name be None.
+        # In any case, this seems like a dangerous default here.
         return self.owner
 
     @property

@@ -83,6 +83,10 @@ class ListChangeV1(KojiFedoraMessagingMessage):
         return self.body.get("owner")
 
     @property
+    def agent_name(self) -> Optional[str]:
+        return self.owner  # is this action always done by the package owner? This seems incorrect.
+
+    @property
     def tag(self) -> str:
         return self.body.get("tag")
 

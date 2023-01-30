@@ -161,6 +161,10 @@ class TaskStateChangeV1(KojiFedoraMessagingMessage):
         return self.body.get("owner")
 
     @property
+    def agent_name(self) -> str:
+        return None  # Do we know who initiated the action?
+
+    @property
     def new(self) -> str:
         return self.body.get("new")
 

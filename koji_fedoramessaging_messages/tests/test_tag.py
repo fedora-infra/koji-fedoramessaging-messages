@@ -27,10 +27,10 @@ def test_tag_message():
     assert msg.version == "2.9.3"
     assert msg.release == "1.fc31"
 
-    assert msg.agent_name == "sgallagh"
+    assert msg.agent_name == "bodhi"
     assert msg.agent_avatar == (
-        "https://seccdn.libravatar.org/avatar/0929fed032bd0a481ef74"
-        "c46023fefe443f3d1b72dbe3efd293b25ed4fc843fd?s=64&d=retro"
+        "https://seccdn.libravatar.org/avatar/"
+        "6f26f2d69404c1b45b3cacc63054bdd0d8270c262335cdda5930c29a8ebc35f1?s=64&d=retro"
     )
     assert msg.summary == "http-parser-2.9.3-1.fc31 was tagged into f31-updates-pending"
 

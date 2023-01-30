@@ -137,6 +137,10 @@ class BuildStateChangeV1(KojiFedoraMessagingMessage):
         return self.body["epoch"]
 
     @property
+    def agent_name(self) -> str:
+        return self.owner
+
+    @property
     def summary(self):
         return (
             f"Build {BUILD_STATES(self.new).name}: {self.owner}'s "
