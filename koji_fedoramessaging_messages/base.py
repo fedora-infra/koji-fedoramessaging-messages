@@ -16,7 +16,6 @@
 
 
 from fedora_messaging import message
-from fedora_messaging.schema_utils import user_avatar_url
 
 
 SCHEMA_URL = "http://fedoraproject.org/message-schema/"
@@ -43,13 +42,6 @@ class KojiFedoraMessagingMessage(message.Message):
     @property
     def agent_name(self):
         return self.owner
-
-    @property
-    def agent_avatar(self):
-        if self.agent_name:
-            return user_avatar_url(self.agent_name)
-        else:
-            return None
 
     @property
     def usernames(self):
