@@ -37,9 +37,6 @@ REPO = {
 
 
 class RepoMessage(KojiFedoraMessagingMessage):
-    @property
-    def owner(self):
-        return None
 
     @property
     def instance(self) -> str:
