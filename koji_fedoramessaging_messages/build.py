@@ -144,5 +144,5 @@ class BuildStateChangeV1(KojiFedoraMessagingMessage):
         )
 
     @property
-    def packages(self):
-        return [self.name]
+    def packages(self) -> List[str]:
+        return [self.name] if self.name else []

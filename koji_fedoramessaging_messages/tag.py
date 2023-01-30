@@ -13,6 +13,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """Define schema for fedora messages sent by koji"""
 
+from typing import List
 
 from .base import KojiFedoraMessagingMessage, SCHEMA_URL
 
@@ -95,8 +96,8 @@ class TagMessage(KojiFedoraMessagingMessage):
         return f"{self.name}-{self.version}-{self.release} was {self._summary_action} {self.tag}"
 
     @property
-    def packages(self):
-        return [self.name]
+    def packages(self) -> List[str]:
+        return [self.name] if self.name else []
 
 
 class TagV1(TagMessage):

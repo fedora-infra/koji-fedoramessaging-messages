@@ -78,3 +78,33 @@ def test_rpm_sign_message():
     )
     assert msg.summary == "rpm build wine-5.4-1.fc32 was signed"
     assert msg.packages == ["wine"]
+
+
+def test_rpm_sign_message_no_build():
+
+    body = {
+        "instance": "primary",
+        "sigkey": "12c944d0",
+        "rpm": {
+            "build_id": 1478177,
+            "name": "wine-opencl-debuginfo",
+            "extra": None,
+            "arch": "aarch64",
+            "buildtime": 1584471339,
+            "id": 20905366,
+            "epoch": None,
+            "version": "5.4",
+            "metadata_only": False,
+            "external_repo_id": 0,
+            "release": "1.fc32",
+            "size": 39178,
+            "buildroot_id": 19890121,
+            "external_repo_name": "INTERNAL",
+            "payloadhash": "61affc5b3f9600cd0ade2126779abf62",
+        },
+        "sighash": "a1957f36d34d29c105f16aae79b19e85",
+    }
+
+    msg = SignV1(body=body)
+    msg.validate()
+    assert msg.owner is None

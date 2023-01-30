@@ -243,12 +243,15 @@ class SignV1(KojiFedoraMessagingMessage):
 
     @property
     def name(self):
-        return self.body["build"]["name"]
+        try:
+            return self.body["build"]["name"]
+        except KeyError:
+            return None
 
     @property
     def summary(self) -> str:
-        return f"rpm build {self.build.get('nvr')} was signed"
+        return f"rpm build {self.body.get('build', dict()).get('nvr')} was signed"
 
     @property
     def packages(self):
-        return [self.name]
+        return [self.name] if self.name else []
