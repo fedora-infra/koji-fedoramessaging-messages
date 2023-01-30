@@ -42,4 +42,5 @@ def test_build_state_change_message():
 
     assert msg.agent_name == "spot"
     assert msg.summary == "Build COMPLETE: spot's chromium-80.0.3987.132-1.fc33"
+    assert str(msg) == msg.summary
     assert msg.packages == ["chromium"]

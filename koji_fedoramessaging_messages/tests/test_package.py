@@ -56,3 +56,4 @@ def test_package_list_change_message2():
 
     assert msg.agent_name == "releng"
     assert msg.summary == "Package list change for rust-dua-cli:  f31-build-side-20267"
+    assert str(msg) == msg.summary

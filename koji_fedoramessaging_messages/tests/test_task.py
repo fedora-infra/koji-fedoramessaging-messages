@@ -122,3 +122,4 @@ def test_task_state_change_message():
     assert (
         msg.summary == "Task CLOSED -- build (libfreehand-0.1.2-6.fc32.src.rpm noarch)"
     )
+    assert str(msg) == msg.summary
