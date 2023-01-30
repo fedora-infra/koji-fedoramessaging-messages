@@ -93,3 +93,7 @@ class ListChangeV1(KojiFedoraMessagingMessage):
     @property
     def block(self) -> Optional[bool]:
         return self.body.get("block")
+
+    @property
+    def summary(self):
+        return f"Package list change for {self.package}:  {self.tag}"
