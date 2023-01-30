@@ -12,9 +12,23 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """Define schema for fedora messages sent by koji"""
+from enum import Enum
 from typing import List, Optional, Any
 
 from .base import KojiFedoraMessagingMessage, SCHEMA_URL
+
+
+# This enums is defined in
+# https://pagure.io/koji/blob/master/f/koji/__init__.py
+# But we need it here as the messages we get from the
+# koji plugin only gives us the ints -- so we need to decode
+# for summaries
+class BUILD_STATES(Enum):
+    BUILDING = 0
+    COMPLETE = 1
+    DELETED = 2
+    FAILED = 3
+    CANCELED = 4
 
 
 class BuildStateChangeV1(KojiFedoraMessagingMessage):
@@ -121,3 +135,14 @@ class BuildStateChangeV1(KojiFedoraMessagingMessage):
     @property
     def epoch(self) -> Any:
         return self.body["epoch"]
+
+    @property
+    def summary(self):
+        return (
+            f"Build {BUILD_STATES(self.new).name}: {self.owner}'s "
+            f"{self.name}-{self.version}-{self.release}"
+        )
+
+    @property
+    def packages(self):
+        return [self.name]

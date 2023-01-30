@@ -41,3 +41,5 @@ def test_build_state_change_message():
     assert msg.epoch is None
 
     assert msg.agent_name == "spot"
+    assert msg.summary == "Build COMPLETE: spot's chromium-80.0.3987.132-1.fc33"
+    assert msg.packages == ["chromium"]

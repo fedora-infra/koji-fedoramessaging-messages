@@ -64,3 +64,4 @@ def test_untag_message():
         msg.summary
         == "python-twisted-19.10.0-2.el8 was untagged from epel8-signing-pending"
     )
+    assert msg.packages == ["python-twisted"]

@@ -242,5 +242,13 @@ class SignV1(KojiFedoraMessagingMessage):
         return self.body.get("sighash")
 
     @property
+    def name(self):
+        return self.body["build"]["name"]
+
+    @property
     def summary(self) -> str:
         return f"rpm build {self.build.get('nvr')} was signed"
+
+    @property
+    def packages(self):
+        return [self.name]

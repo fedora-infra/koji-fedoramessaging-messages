@@ -77,3 +77,4 @@ def test_rpm_sign_message():
         "5742cff6bd450af2fb0dc9525409d922bb448d22237bd5047?s=64&d=retro"
     )
     assert msg.summary == "rpm build wine-5.4-1.fc32 was signed"
+    assert msg.packages == ["wine"]

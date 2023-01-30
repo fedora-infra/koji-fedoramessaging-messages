@@ -94,6 +94,10 @@ class TagMessage(KojiFedoraMessagingMessage):
     def summary(self) -> str:
         return f"{self.name}-{self.version}-{self.release} was {self._summary_action} {self.tag}"
 
+    @property
+    def packages(self):
+        return [self.name]
+
 
 class TagV1(TagMessage):
     """This message is sent when a package is tagged."""
