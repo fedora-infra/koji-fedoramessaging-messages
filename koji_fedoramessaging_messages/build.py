@@ -43,7 +43,7 @@ class BuildStateChangeV1(KojiFedoraMessagingMessage):
         "type": "object",
         "properties": {
             "build_id": {"type": ["null", "integer"], "description": "build id"},
-            "old": {"type": "integer", "description": "previous state"},
+            "old": {"type": ["null", "integer"], "description": "previous state"},
             "name": {
                 "type": "string",
                 "description": "name of the package built",
@@ -57,9 +57,7 @@ class BuildStateChangeV1(KojiFedoraMessagingMessage):
                 "description": "attribute",
             },
             "request": {
-                "type": ["null", "array"],
                 "description": "build request details",
-                "contains": {"type": "string"},
             },
             "instance": {
                 "type": "string",
