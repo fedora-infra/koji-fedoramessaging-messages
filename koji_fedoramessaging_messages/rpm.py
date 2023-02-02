@@ -127,7 +127,7 @@ class SignV1(KojiFedoraMessagingMessage):
                         "description": "koji build creation time",
                     },
                     "completion_time": {
-                        "type": "number",
+                        "type": ["number", "null"],
                         "description": "koji build completion time",
                     },
                     "package_id": {

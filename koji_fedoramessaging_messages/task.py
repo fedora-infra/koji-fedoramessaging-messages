@@ -37,7 +37,7 @@ class TaskStateChangeV1(KojiFedoraMessagingMessage):
                         "description": "parent tasks",
                     },
                     "completion_time": {
-                        "type": "number",
+                        "type": ["number", "null"],
                         "description": "completion time",
                     },
                     "start_time": {
@@ -45,9 +45,7 @@ class TaskStateChangeV1(KojiFedoraMessagingMessage):
                         "description": "start time",
                     },
                     "request": {
-                        "type": ["null", "array"],
                         "description": "task request details",
-                        "contains": {"type": "string"},
                     },
                     "waiting": {
                         "type": "boolean",
