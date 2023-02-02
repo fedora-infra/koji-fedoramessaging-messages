@@ -48,7 +48,7 @@ class TaskStateChangeV1(KojiFedoraMessagingMessage):
                         "description": "task request details",
                     },
                     "waiting": {
-                        "type": "boolean",
+                        "type": ["boolean", "null"],
                         "description": "Is the task waiting or not",
                     },
                     "awaited": {
@@ -106,7 +106,7 @@ class TaskStateChangeV1(KojiFedoraMessagingMessage):
                 },
             },
             "old": {
-                "type": "string",
+                "type": ["string", "null"],
                 "description": "previous task state",
             },
             "attribute": {"type": "string", "description": "attribute"},
