@@ -76,7 +76,7 @@ class TaskStateChangeV1(KojiFedoraMessagingMessage):
                         "description": "create time",
                     },
                     "result": {
-                        "type": "null",
+                        "type": ["null", "string"],
                         "description": "result",
                     },
                     "owner": {
