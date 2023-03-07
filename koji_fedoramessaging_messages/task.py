@@ -84,7 +84,7 @@ class TaskStateChangeV1(KojiFedoraMessagingMessage):
                         "description": "owner name or id",
                     },
                     "host_id": {
-                        "type": "integer",
+                        "type": ["null", "integer"],
                         "description": "host id",
                     },
                     "method": {
