@@ -93,7 +93,10 @@ class TagMessage(KojiFedoraMessagingMessage):
 
     @property
     def summary(self) -> str:
-        return f"{self.name}-{self.version}-{self.release} was {self._summary_action} {self.tag}"
+        return (
+            f"{self.name}-{self.version}-{self.release} was {self._summary_action}"
+            f" {self.tag} by {self.user}"
+        )
 
     @property
     def packages(self) -> List[str]:
