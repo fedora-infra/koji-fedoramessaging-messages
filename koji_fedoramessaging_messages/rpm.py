@@ -233,6 +233,10 @@ class SignV1(KojiFedoraMessagingMessage):
         return self.body.get("rpm")
 
     @property
+    def rpm_nvr(self) -> str:
+        return f'{self.rpm.get("name")}-{self.rpm.get("version")}-{self.rpm.get("release")}'
+
+    @property
     def build(self) -> dict:
         return self.body.get("build")
 
@@ -254,7 +258,7 @@ class SignV1(KojiFedoraMessagingMessage):
 
     @property
     def summary(self) -> str:
-        return f"rpm build {self.body.get('build', dict()).get('nvr')} was signed"
+        return f"rpm {self.rpm_nvr} was signed"
 
     @property
     def packages(self):
