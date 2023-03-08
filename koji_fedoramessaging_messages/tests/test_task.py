@@ -114,7 +114,7 @@ def test_task_state_change_message():
     assert msg.info["create_time"] == 1584475491.0
     assert msg.info["children"][0]["arch"] == "ppc64le"
     assert msg.attribute == "state"
-    assert msg.id == 42569071
+    assert msg.task_id == 42569071
     assert msg.instance == "primary"
     assert msg.owner == "koschei"
     assert msg.srpm == "libfreehand-0.1.2-6.fc32.src.rpm"

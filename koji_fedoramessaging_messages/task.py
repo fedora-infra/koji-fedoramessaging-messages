@@ -147,7 +147,7 @@ class TaskStateChangeV1(KojiFedoraMessagingMessage):
         return self.body.get("attribute")
 
     @property
-    def id(self) -> int:
+    def task_id(self) -> int:
         return self.body.get("id")
 
     @property
