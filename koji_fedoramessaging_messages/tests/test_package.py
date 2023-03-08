@@ -2,7 +2,6 @@ from koji_fedoramessaging_messages.package import ListChangeV1
 
 
 def test_package_list_change_message1():
-
     body = {
         "force": None,
         "instance": "primary",
@@ -29,7 +28,6 @@ def test_package_list_change_message1():
 
 
 def test_package_list_change_message2():
-
     body = {
         "force": True,
         "instance": "primary",

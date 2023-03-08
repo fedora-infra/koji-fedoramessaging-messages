@@ -13,8 +13,6 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """Define schema for fedora messages sent by koji"""
 
-from typing import List
-
 from .base import KojiFedoraMessagingMessage, SCHEMA_URL
 
 
@@ -192,7 +190,7 @@ class SignV1(KojiFedoraMessagingMessage):
                     },
                     "name": {
                         "type": "string",
-                        "description": "name",   # That's not a very informative description
+                        "description": "name",  # That's not a very informative description
                     },
                     "task_id": {
                         "type": "integer",

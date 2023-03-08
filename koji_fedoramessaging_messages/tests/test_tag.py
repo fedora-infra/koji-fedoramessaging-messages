@@ -2,7 +2,6 @@ from koji_fedoramessaging_messages.tag import TagV1, UntagV1
 
 
 def test_tag_message():
-
     body = {
         "build_id": 1457909,
         "name": "http-parser",
@@ -37,7 +36,6 @@ def test_tag_message():
 
 
 def test_untag_message():
-
     body = {
         "build_id": 1478431,
         "name": "python-twisted",

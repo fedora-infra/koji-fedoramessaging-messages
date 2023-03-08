@@ -2,7 +2,6 @@ from koji_fedoramessaging_messages.task import TaskStateChangeV1
 
 
 def test_task_state_change_message():
-
     body = {
         "info": {
             "parent": None,

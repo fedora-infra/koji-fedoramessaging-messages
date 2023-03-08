@@ -2,7 +2,6 @@ from koji_fedoramessaging_messages.rpm import SignV1
 
 
 def test_rpm_sign_message():
-
     body = {
         "instance": "primary",
         "sigkey": "12c944d0",
@@ -82,7 +81,6 @@ def test_rpm_sign_message():
 
 
 def test_rpm_sign_message_no_build():
-
     body = {
         "instance": "primary",
         "sigkey": "12c944d0",

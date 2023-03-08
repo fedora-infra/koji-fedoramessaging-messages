@@ -2,7 +2,6 @@ from koji_fedoramessaging_messages.build import BuildStateChangeV1
 
 
 def test_build_state_change_message():
-
     body = {
         "build_id": 1478312,
         "old": 0,

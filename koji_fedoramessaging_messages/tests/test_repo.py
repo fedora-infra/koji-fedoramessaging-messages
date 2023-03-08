@@ -2,7 +2,6 @@ from koji_fedoramessaging_messages.repo import DoneV1, InitV1
 
 
 def test_repo_done_message():
-
     body = {
         "instance": "primary",
         "repo_id": 1409150,
@@ -23,7 +22,6 @@ def test_repo_done_message():
 
 
 def test_repo_init_message():
-
     body = {
         "instance": "primary",
         "repo_id": 1410901,
