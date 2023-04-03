@@ -13,6 +13,8 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """Define schema for fedora messages sent by koji"""
 
+from fedora_messaging.message import DEBUG
+
 from .base import KojiFedoraMessagingMessage, SCHEMA_URL
 
 
@@ -20,6 +22,7 @@ class SignV1(KojiFedoraMessagingMessage):
     """This message is sent when a rpm is signed."""
 
     topic = "buildsys.rpm.sign"
+    severity = DEBUG
 
     body_schema = {
         "$id": f"{SCHEMA_URL}/v1/{topic}#",

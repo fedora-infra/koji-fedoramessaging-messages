@@ -15,6 +15,8 @@
 
 from typing import List
 
+from fedora_messaging.message import DEBUG
+
 from .base import KojiFedoraMessagingMessage, SCHEMA_URL
 
 TAG = {
@@ -55,6 +57,8 @@ TAG = {
 
 
 class TagMessage(KojiFedoraMessagingMessage):
+    severity = DEBUG
+
     @property
     def build_id(self) -> int:
         return self.body.get("build_id")

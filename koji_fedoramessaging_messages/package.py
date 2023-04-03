@@ -14,6 +14,8 @@
 """Define schema for fedora messages sent by koji"""
 from typing import Optional, List
 
+from fedora_messaging.message import DEBUG
+
 from .base import KojiFedoraMessagingMessage, SCHEMA_URL
 
 
@@ -21,6 +23,7 @@ class ListChangeV1(KojiFedoraMessagingMessage):
     """This message is sent when a package list changes."""
 
     topic = "buildsys.package.list.change"
+    severity = DEBUG
 
     body_schema = {
         "$id": f"{SCHEMA_URL}/v1/{topic}#",

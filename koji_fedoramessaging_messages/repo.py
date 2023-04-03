@@ -13,6 +13,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """Define schema for fedora messages sent by koji"""
 
+from fedora_messaging.message import DEBUG
 
 from .base import KojiFedoraMessagingMessage, SCHEMA_URL
 
@@ -37,6 +38,8 @@ REPO = {
 
 
 class RepoMessage(KojiFedoraMessagingMessage):
+    severity = DEBUG
+
     @property
     def instance(self) -> str:
         return self.body.get("instance")
