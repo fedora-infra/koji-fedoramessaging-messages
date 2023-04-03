@@ -5,8 +5,8 @@ specfile_path: python-koji-fedoramessaging-messages.spec
 
 # add or remove files that should be synced
 files_to_sync:
-    - python-koji-fedoramessaging-messages.spec
-    - .packit.yaml
+  - python-koji-fedoramessaging-messages.spec
+  - .packit.yaml
 
 # name in upstream package repository/registry (e.g. in PyPI)
 upstream_package_name: koji-fedoramessaging-messages
@@ -19,8 +19,13 @@ srpm_build_deps:
   - poetry
 
 actions:
-    post-upstream-clone:
-      - "./make-spec.sh"
+  post-upstream-clone:
+    - "./make-spec.sh"
+  create-archive:
+    - "poetry build -f sdist"
+    - "sh -c 'echo dist/koji-fedoramessaging-messages-$(poetry version -s).tar.gz'"
+  get-current-version:
+    - "poetry version -s"
 
 targets:
   - fedora-latest-stable
