@@ -1,6 +1,6 @@
 # Created by pyp2rpm-3.3.8
 %global pypi_name koji-fedoramessaging-messages
-%global pypi_version 1.0.6
+%global pypi_version @@VERSION@@
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
@@ -50,8 +50,3 @@ Requires:       python3dist(setuptools)
 %{python3_sitelib}/koji_fedoramessaging_messages-%{pypi_version}-py%{python3_version}.egg-info
 
 %changelog
-* Mon Apr 03 2023 Aurelien Bompard <abompard@fedoraproject.org> - 1.0.6-1
-- Version 1.0.6
-
-* Thu Feb 02 2023 Ryan Lerch <rlerch@redhat.com> - 1.0.4-1
-- Initial package.
