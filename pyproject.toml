@@ -17,7 +17,7 @@ homepage = "https://github.com/fedora-infra/koji-fedoramessaging-messages"
 keywords = ['fedora']
 
 include = [
-    "tox.ini",
+    { path = "tox.ini", format = "sdist" },
 ]
 
 [tool.poetry.plugins."fedora.messages"]
