@@ -15,6 +15,7 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(fedora-messaging) >= 3.0.1
 BuildRequires:  python3dist(setuptools)
+BuildRequires:  python3dist(pytest)
 
 %description
  koji-fedoramessaging messagesA schema package for [koji-fedoramessaging]( the
@@ -41,7 +42,7 @@ Requires:       python3dist(setuptools)
 %py3_install
 
 %check
-%{__python3} setup.py test
+%{__python3} -m pytest -v %{pypi_name}/tests/
 
 %files -n python3-%{rpm_name}
 %license LICENSE

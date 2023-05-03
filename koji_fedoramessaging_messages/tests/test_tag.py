@@ -1,3 +1,5 @@
+import pytest
+
 from koji_fedoramessaging_messages.tag import TagV1, UntagV1
 
 
@@ -68,3 +70,16 @@ def test_untag_message():
     )
     assert str(msg) == msg.summary
     assert msg.packages == ["python-twisted"]
+
+
+@pytest.mark.parametrize(
+    "tag,prio",
+    [("f42", 2), ("f42-rebuild", 0), ("eln", 1), ("eln-rebuild", 1), (None, 2)],
+)
+def test_tag_priority(tag, prio):
+    body = {
+        "tag": tag,
+    }
+    msg = TagV1(body=body)
+    msg.validate()
+    assert msg.priority == prio

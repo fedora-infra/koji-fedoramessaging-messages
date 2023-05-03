@@ -13,11 +13,12 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """Define schema for fedora messages sent by koji"""
 
+import re
 from typing import List
 
 from fedora_messaging.message import DEBUG
 
-from .base import KojiFedoraMessagingMessage, SCHEMA_URL
+from .base import SCHEMA_URL, KojiFedoraMessagingMessage
 
 TAG = {
     "type": "object",
@@ -55,9 +56,16 @@ TAG = {
     },
 }
 
+_MASS_REBUILD_RE = re.compile(r"^f\d+-rebuild$")
+_ELN_RE = re.compile(r"^eln(-.*)?$")
+
 
 class TagMessage(KojiFedoraMessagingMessage):
     severity = DEBUG
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.priority = self._choose_priority()
 
     @property
     def build_id(self) -> int:
@@ -114,6 +122,22 @@ class TagMessage(KojiFedoraMessagingMessage):
     @property
     def usernames(self) -> List[str]:
         return [name for name in (self.agent_name, self.owner) if name is not None]
+
+    @property
+    def is_mass_rebuild(self) -> bool:
+        return self.tag and _MASS_REBUILD_RE.match(self.tag) is not None
+
+    @property
+    def is_eln(self) -> bool:
+        return self.tag and _ELN_RE.match(self.tag) is not None
+
+    def _choose_priority(self) -> int:
+        # https://pagure.io/fedora-infrastructure/issue/10899
+        if self.is_mass_rebuild:
+            return 0
+        if self.is_eln:
+            return 1
+        return 2
 
 
 class TagV1(TagMessage):
