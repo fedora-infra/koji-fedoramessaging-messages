@@ -22,8 +22,10 @@ actions:
   post-upstream-clone:
     - "./make-spec.sh"
   create-archive:
-    - "poetry build -f sdist"
-    - "sh -c 'echo dist/koji-fedoramessaging-messages-$(poetry version -s).tar.gz'"
+    # Since version 1.2.2, Poetry adheres to https://peps.python.org/pep-0625/
+    # (underscores over dashes)
+    - "poetry build -q -n -f sdist"
+    - "sh -c 'echo dist/koji_fedoramessaging_messages-$(poetry version -s).tar.gz'"
   get-current-version:
     - "poetry version -s"
 
