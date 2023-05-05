@@ -7,7 +7,7 @@ Version:        %{pypi_version}
 Release:        1%{?dist}
 Summary:        A schema package for messages sent by the koji-fedoramessaging plugin
 
-License:        None
+License:        GPL-3.0-or-later
 URL:            https://github.com/fedora-infra/koji-fedoramessaging-messages
 Source0:        %{pypi_source}
 BuildArch:      noarch
@@ -18,8 +18,7 @@ BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(pytest)
 
 %description
- koji-fedoramessaging messagesA schema package for [koji-fedoramessaging]( the
-[detailed documentation]( on packaging your schemas.
+Schema package for koji-fedoramessaging.
 
 %package -n     python3-%{rpm_name}
 Summary:        %{summary}
@@ -28,8 +27,7 @@ Summary:        %{summary}
 Requires:       python3dist(fedora-messaging) >= 3.0.1
 Requires:       python3dist(setuptools)
 %description -n python3-%{rpm_name}
- koji-fedoramessaging messagesA schema package for [koji-fedoramessaging]( the
-[detailed documentation]( on packaging your schemas.
+Schema package for koji-fedoramessaging.
 
 
 %prep
