@@ -45,6 +45,9 @@ black = "^22.6.0"
 flake8 = ">=4,<7"
 poetry = "^1.2.0b2"
 
+[tool.black]
+line-length = 100
+
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

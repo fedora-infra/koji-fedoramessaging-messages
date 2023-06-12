@@ -33,10 +33,7 @@ def test_tag_message():
         "https://seccdn.libravatar.org/avatar/"
         "6f26f2d69404c1b45b3cacc63054bdd0d8270c262335cdda5930c29a8ebc35f1?s=64&d=retro"
     )
-    assert (
-        msg.summary
-        == "http-parser-2.9.3-1.fc31 was tagged into f31-updates-pending by bodhi"
-    )
+    assert msg.summary == "http-parser-2.9.3-1.fc31 was tagged into f31-updates-pending by bodhi"
     assert str(msg) == msg.summary
 
 
