@@ -40,7 +40,7 @@ Schema package for koji-fedoramessaging.
 %py3_install
 
 %check
-%{__python3} -m pytest -v %{pypi_name}/tests/
+%{__python3} -m pytest -v tests/
 
 %files -n python3-%{rpm_name}
 %license LICENSE
