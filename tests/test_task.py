@@ -213,6 +213,7 @@ def test_task_state_change_message():
     assert msg.instance == "primary"
     assert msg.owner == "koschei"
     assert msg.srpm == "libfreehand-0.1.2-6.fc32.src.rpm"
+    assert msg.url == "https://koji.stg.fedoraproject.org/koji/taskinfo?taskID=42569071"
     assert msg.summary == "Task CLOSED -- build (libfreehand-0.1.2-6.fc32.src.rpm noarch)"
     expected_str = """Task 42569071 on buildvm-armv7-16.arm.fedoraproject.org
 Task Type: build (noarch)

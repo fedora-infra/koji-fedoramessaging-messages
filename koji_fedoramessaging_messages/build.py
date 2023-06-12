@@ -172,7 +172,7 @@ class BuildStateChangeV1(KojiFedoraMessagingMessage):
 
     @property
     def old_state_name(self) -> Optional[str]:
-        return BUILD_STATES(self.old).name.lower() if self.old else None
+        return None if self.old is None else BUILD_STATES(self.old).name.lower()
 
     @property
     def new(self) -> int:

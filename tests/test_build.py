@@ -36,6 +36,7 @@ def test_build_state_change_message():
     assert msg.version == "80.0.3987.132"
     assert msg.release == "1.fc33"
     assert msg.old == 0
+    assert msg.old_state_name == "building"
     assert msg.new == 1
     assert msg.task_id is None
     assert msg.attribute == "state"
