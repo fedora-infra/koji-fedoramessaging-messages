@@ -13,8 +13,12 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """Define schema for fedora messages sent by koji"""
 
+import logging
 
-from .base import KojiFedoraMessagingMessage, SCHEMA_URL
+from .base import KojiFedoraMessagingMessage, SCHEMA_URL, TASK_INFO
+from .utilities import fill_task_template
+
+log = logging.getLogger(__name__)
 
 
 class TaskStateChangeV1(KojiFedoraMessagingMessage):
@@ -25,159 +29,116 @@ class TaskStateChangeV1(KojiFedoraMessagingMessage):
     body_schema = {
         "$id": f"{SCHEMA_URL}/v1/{topic}#",
         "$schema": "https://json-schema.org/draft/2019-09/schema",
+        "$defs": {
+            "task_info": TASK_INFO,
+        },
         "description": "A koji task state changed.",
         "type": "object",
         "properties": {
-            "info": {
-                "type": "object",
-                "description": "task info",
-                "properties": {
-                    "parent": {
-                        "type": ["null", "array"],
-                        "description": "parent tasks",
-                    },
-                    "completion_time": {
-                        "type": ["number", "null"],
-                        "description": "completion time",
-                    },
-                    "start_time": {
-                        "type": "number",
-                        "description": "start time",
-                    },
-                    "request": {
-                        "description": "task request details",
-                    },
-                    "waiting": {
-                        "type": ["boolean", "null"],
-                        "description": "Is the task waiting or not",
-                    },
-                    "awaited": {
-                        "type": "null",
-                        "description": "awaited",
-                    },
-                    "id": {
-                        "type": "integer",
-                        "description": "id",
-                    },
-                    "priority": {
-                        "type": "integer",
-                        "description": "priority",
-                    },
-                    "channel_id": {
-                        "type": "integer",
-                        "description": "channel_id",
-                    },
-                    "state": {
-                        "type": "integer",
-                        "description": "task state",
-                    },
-                    "create_time": {
-                        "type": "number",
-                        "description": "create time",
-                    },
-                    "result": {
-                        "type": ["null", "string"],
-                        "description": "result",
-                    },
-                    "owner": {
-                        "type": ["null", "string", "integer"],
-                        "description": "owner name or id",
-                    },
-                    "host_id": {
-                        "type": ["null", "integer"],
-                        "description": "host id",
-                    },
-                    "method": {
-                        "type": "string",
-                        "description": "task method",
-                    },
-                    "label": {
-                        "type": "null",
-                        "description": "label",
-                    },
-                    "arch": {
-                        "type": "string",
-                        "description": "task specific architecture",
-                    },
-                    "children": {
-                        "type": ["null", "array"],
-                        "description": "task childrens",
-                    },
-                },
-            },
-            "old": {
-                "type": ["string", "null"],
-                "description": "previous task state",
-            },
-            "attribute": {"type": "string", "description": "attribute"},
-            "id": {
-                "type": "integer",
-                "description": "task id",
+            "info": {"$ref": "#/$defs/task_info"},
+            "id": {"$ref": "#/$defs/task_info/properties/id"},
+            "method": {"$ref": "#/$defs/task_info/properties/method"},
+            "attribute": {
+                "type": "string",
+                "description": "the attribute that changed. Always 'state'.",
             },
             "instance": {
                 "type": "string",
                 "description": "distinguish between messages from primary and secondary koji",
             },
             "owner": {
-                "type": "string",
+                "type": ["string", "null"],
                 "description": "name of the package owner",
+            },
+            "srpm": {
+                "type": "string",
+                "description": "the source rpm in the request",
+            },
+            # URLs
+            "base_url": {
+                "type": "string",
+                "description": "The base URL of the koji instance",
+            },
+            "files_base_url": {
+                "type": "string",
+                "description": "The base URL where the result files are hosted",
+            },
+            # States
+            "old": {
+                "type": ["string", "null"],
+                "description": "previous task state",
             },
             "new": {
                 "type": "string",
                 "description": "name of the new task state",
             },
-            "srpm": {
-                "type": "string",
-                "description": "name of the source rpm",
-            },
-            "method": {"type": "string", "description": "name of the task method"},
         },
+        "required": [
+            "id",
+            "info",
+            "method",
+            "attribute",
+            "old",
+            "new",
+            "srpm",
+            "owner",
+            "base_url",
+            "files_base_url",
+            "instance",
+        ],
     }
 
     @property
     def info(self) -> dict:
-        return self.body.get("info")
+        return self.body["info"]
 
     @property
     def old(self) -> str:
-        return self.body.get("old")
+        return self.body["old"]
 
     @property
     def attribute(self) -> str:
-        return self.body.get("attribute")
+        return self.body["attribute"]
 
     @property
     def task_id(self) -> int:
-        return self.body.get("id")
+        return self.body["id"]
 
     @property
     def instance(self) -> str:
-        return self.body.get("instance")
+        return self.body["instance"]
 
     @property
     def owner(self) -> str:
-        return self.body.get("owner")
+        return self.body["owner"]
 
     @property
     def agent_name(self) -> str:
-        return None  # Do we know who initiated the action?
+        return self.owner
 
     @property
     def new(self) -> str:
-        return self.body.get("new")
+        return self.body["new"]
 
     @property
     def srpm(self) -> str:
-        return self.body.get("srpm")
+        return self.body["srpm"]
 
     @property
     def arch(self) -> str:
-        return self.info.get("arch")
+        return self.info["arch"]
 
     @property
     def method(self) -> str:
-        return self.body.get("method")
+        return self.body["method"]
+
+    @property
+    def url(self) -> str:
+        return self.body["info"]["url"]
 
     @property
     def summary(self):
         return f"Task {self.new} -- {self.method or ''} ({self.srpm or ''} {self.arch or ''})"
+
+    def __str__(self) -> str:
+        return fill_task_template(self.body["info"], self.body["files_base_url"])
