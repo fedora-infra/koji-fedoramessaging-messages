@@ -147,3 +147,44 @@ Task Type: build (noarch)
 Link: https://koji.fedoraproject.org/koji/taskinfo?taskID=42561864
 """
     assert str(msg) == expected_str
+
+
+def test_build_not_finished():
+    body = {
+        "build_id": 1478312,
+        "old": None,
+        "name": "chromium",
+        "task_id": None,
+        "task": None,
+        "attribute": "state",
+        "request": [
+            (
+                "git+https://src.fedoraproject.org/rpms/chromium.git#"
+                "5f8f367e482fe8e30711aea49bf2ecfd163d278f"
+            ),
+            "rawhide",
+            {},
+        ],
+        "instance": "primary",
+        "epoch": None,
+        "version": "80.0.3987.132",
+        "owner": "spot",
+        "new": 0,
+        "release": "1.fc33",
+        "creation_time": "2023-06-09T07:16:27.818161+00:00",
+        "completion_time": None,
+        "url": "https://koji.fedoraproject.org/koji/buildinfo?taskID=1478312",
+    }
+
+    msg = BuildStateChangeV1(body=body)
+    msg.validate()
+    expected_str = """Package:    chromium-80.0.3987.132-1.fc33
+Status:     building
+Built by:   spot
+ID:         1478312
+Started:    Fri, 09 Jun 2023 07:16:27 UTC
+Finished:   (still running)
+
+Build imported into koji
+"""
+    assert str(msg) == expected_str

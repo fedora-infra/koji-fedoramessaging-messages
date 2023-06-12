@@ -218,7 +218,7 @@ class BuildStateChangeV1(KojiFedoraMessagingMessage):
             owner_name=self.owner,
             id=self.build_id,
             started=date_to_string(self.body["creation_time"]),
-            finished=date_to_string(self.body["completion_time"]),
+            finished=date_to_string(self.body["completion_time"]) or "(still running)",
         )
         if self.body["task"] is None:
             _task_str = "Build imported into koji\n"
