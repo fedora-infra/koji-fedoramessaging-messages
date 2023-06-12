@@ -12,10 +12,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """Define schema for fedora messages sent by koji"""
-from enum import Enum
-from typing import List, Optional, Any
 
-from .base import KojiFedoraMessagingMessage, SCHEMA_URL
+import logging
+from enum import Enum
+from typing import List, Optional
+
+from .base import KojiFedoraMessagingMessage, SCHEMA_URL, TASK_INFO
+from .utilities import fill_task_template, date_to_string
+
+
+log = logging.getLogger(__name__)
 
 
 # This enums is defined in
@@ -39,72 +45,111 @@ class BuildStateChangeV1(KojiFedoraMessagingMessage):
     body_schema = {
         "$id": f"{SCHEMA_URL}/v1/{topic}#",
         "$schema": "https://json-schema.org/draft/2019-09/schema",
+        "$defs": {
+            "task_info": TASK_INFO,
+        },
         "description": "The state of the build changed.",
         "type": "object",
         "properties": {
-            "build_id": {"type": ["null", "integer"], "description": "build id"},
-            "old": {"type": ["null", "integer"], "description": "previous state"},
             "name": {
                 "type": "string",
                 "description": "name of the package built",
-            },
-            "task_id": {
-                "type": ["null", "integer"],
-                "description": "task id",
-            },
-            "attribute": {
-                "type": "string",
-                "description": "attribute",
-            },
-            "request": {
-                "description": "build request details",
-            },
-            "instance": {
-                "type": "string",
-                "description": "distinguish between messages from primary and secondary koji",
-            },
-            "epoch": {
-                "type": ["null", "string", "integer"],
-                "description": "epoch",
             },
             "version": {
                 "type": "string",
                 "description": "version of the build",
             },
-            "owner": {
-                "type": ["null", "integer", "string"],
-                "description": "the owner of the build",
-            },
-            "new": {
-                "type": "integer",
-                "description": "new state",
-            },
             "release": {
                 "type": "string",
                 "description": "release number of the package",
             },
+            "epoch": {
+                "type": ["null", "string", "integer"],
+                "description": "epoch",
+            },
+            "attribute": {
+                "type": "string",
+                "description": "attribute",
+            },
+            "build_id": {"type": ["null", "integer"], "description": "build id"},
+            "owner": {
+                "type": ["null", "string"],
+                "description": "the owner of the build",
+            },
+            "instance": {
+                "type": "string",
+                "description": "distinguish between messages from primary and secondary koji",
+            },
+            "url": {
+                "type": ["null", "string"],
+                "description": "the URL of the build in koji-web",
+            },
+            # Task
+            "task_id": {
+                "type": ["null", "integer"],
+                "description": "task id",
+            },
+            "task": {
+                "type": ["null", "object"],
+                "desctiption": "the task that triggered this build, if any",
+                "properties": {
+                    "$ref": "#/$defs/task_info/properties",
+                },
+            },
+            "request": {
+                "description": "build request details",
+                "type": ["array"],
+            },
+            # States
+            "old": {"type": ["null", "integer"], "description": "previous state"},
+            "new": {
+                "type": "integer",
+                "description": "new state",
+            },
+            # Timestamps
+            "creation_time": {
+                "type": "string",
+                "description": "creation time in iso format",
+            },
+            "completion_time": {
+                "type": ["string", "null"],
+                "description": "completion time in iso format",
+            },
         },
+        "required": [
+            "name",
+            "version",
+            "release",
+            "epoch",
+            "attribute",
+            "old",
+            "new",
+            "build_id",
+            "task_id",
+            "task",
+            "request",
+            "owner",
+            "instance",
+            "creation_time",
+            "completion_time",
+        ],
     }
 
     @property
     def build_id(self) -> Optional[int]:
-        return self.body.get("build_id")
-
-    @property
-    def old(self) -> int:
-        return self.body.get("old")
+        return self.body["build_id"]
 
     @property
     def name(self) -> str:
-        return self.body.get("name")
+        return self.body["name"]
 
     @property
     def task_id(self) -> Optional[int]:
-        return self.body.get("task_id")
+        return self.body["task_id"]
 
     @property
     def attribute(self) -> str:
-        return self.body.get("attribute")
+        return self.body["attribute"]
 
     @property
     def request(self) -> Optional[List]:
@@ -119,27 +164,39 @@ class BuildStateChangeV1(KojiFedoraMessagingMessage):
         return self.body["version"]
 
     @property
-    def owner(self) -> str:
-        return self.body.get("owner")
+    def owner(self) -> Optional[str]:
+        return self.body["owner"]
+
+    @property
+    def old(self) -> Optional[int]:
+        return self.body["old"]
+
+    @property
+    def old_state_name(self) -> Optional[str]:
+        return BUILD_STATES(self.old).name.lower() if self.old else None
 
     @property
     def new(self) -> int:
         return self.body["new"]
 
     @property
+    def new_state_name(self) -> Optional[str]:
+        return BUILD_STATES(self.new).name.lower()
+
+    @property
     def release(self) -> str:
         return self.body["release"]
 
     @property
-    def epoch(self) -> Any:
+    def epoch(self) -> Optional[str | int]:
         return self.body["epoch"]
 
     @property
-    def agent_name(self) -> str:
+    def agent_name(self) -> Optional[str]:
         return self.owner
 
     @property
-    def summary(self):
+    def summary(self) -> str:
         return (
             f"Build {BUILD_STATES(self.new).name}: {self.owner}'s "
             f"{self.name}-{self.version}-{self.release}"
@@ -148,3 +205,36 @@ class BuildStateChangeV1(KojiFedoraMessagingMessage):
     @property
     def packages(self) -> List[str]:
         return [self.name] if self.name else []
+
+    @property
+    def url(self) -> str:
+        return self.body["url"]
+
+    def __str__(self) -> str:
+        _build_str = _build_template.format(
+            name=self.name,
+            version=self.version,
+            release=self.release,
+            status=self.new_state_name,
+            owner_name=self.owner,
+            id=self.build_id,
+            started=date_to_string(self.body["creation_time"]),
+            finished=date_to_string(self.body["completion_time"]),
+        )
+        if self.body["task"] is None:
+            _task_str = "Build imported into koji\n"
+        else:
+            _task_str = "Closed tasks:\n-------------\n"
+            _task_str += fill_task_template(self.body["task"], self.body["files_base_url"])
+
+        return _build_str + _task_str
+
+
+_build_template = """Package:    {name}-{version}-{release}
+Status:     {status}
+Built by:   {owner_name}
+ID:         {id}
+Started:    {started}
+Finished:   {finished}
+
+"""

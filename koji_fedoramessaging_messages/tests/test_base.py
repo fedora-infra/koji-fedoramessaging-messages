@@ -12,11 +12,18 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from koji_fedoramessaging_messages.build import BuildStateChangeV1
+from koji_fedoramessaging_messages.repo import DoneV1
 
 
 def test_base():
-    msg = BuildStateChangeV1(body={})
+    msg = DoneV1(
+        body={
+            "instance": "primary",
+            "repo_id": 1409150,
+            "tag": "module-jmc-latest-3220200311144307-089fddd9-build",
+            "tag_id": 20164,
+        }
+    )
     assert msg.app_name == "Koji"
     assert msg.app_icon == "https://apps.fedoraproject.org/img/icons/koji.png"
     assert msg.agent_name is None
