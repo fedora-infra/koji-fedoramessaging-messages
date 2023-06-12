@@ -15,11 +15,10 @@
 
 import logging
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
-from .base import KojiFedoraMessagingMessage, SCHEMA_URL, TASK_INFO
-from .utilities import fill_task_template, date_to_string
-
+from .base import SCHEMA_URL, TASK_INFO, KojiFedoraMessagingMessage
+from .utilities import date_to_string, fill_task_template
 
 log = logging.getLogger(__name__)
 
@@ -152,7 +151,7 @@ class BuildStateChangeV1(KojiFedoraMessagingMessage):
         return self.body["attribute"]
 
     @property
-    def request(self) -> Optional[List]:
+    def request(self) -> Optional[list]:
         return self.body["request"]
 
     @property
@@ -203,7 +202,7 @@ class BuildStateChangeV1(KojiFedoraMessagingMessage):
         )
 
     @property
-    def packages(self) -> List[str]:
+    def packages(self) -> list[str]:
         return [self.name] if self.name else []
 
     @property

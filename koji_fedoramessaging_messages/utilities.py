@@ -1,6 +1,5 @@
 import datetime
 
-
 _task_header_template = """Task {id} on {build_host}
 Task Type: {method} ({arch})
 Link: {url}

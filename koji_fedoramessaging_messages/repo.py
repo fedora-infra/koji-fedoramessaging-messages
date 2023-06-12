@@ -15,7 +15,7 @@
 
 from fedora_messaging.message import DEBUG
 
-from .base import KojiFedoraMessagingMessage, SCHEMA_URL
+from .base import SCHEMA_URL, KojiFedoraMessagingMessage
 
 REPO = {
     "type": "object",

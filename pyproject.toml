@@ -40,13 +40,23 @@ pytest = "^7.1.2"
 pytest-cov = "^3.0.0 || ^4.0.0"
 sphinx = "^3.0"
 mock = "^4.0"
-bandit = "^1.6"
 black = "^22.6.0"
-flake8 = ">=4,<7"
 poetry = "^1.2.0b2"
+ruff = "^0.0.272"
 
 [tool.black]
 line-length = 100
+
+[tool.ruff]
+select = ["E", "F", "W", "I", "UP", "S", "B", "RUF"]
+line-length = 100
+target-version = "py310"
+# Allow UP007 when python 3.11 is our minimum version: the construct wasn't
+# optimized yet on python 3.10
+ignore = ["RUF010", "UP038", "UP007"]
+
+[tool.ruff.per-file-ignores]
+"koji_fedoramessaging_messages/tests/*" = ["S101"]
 
 
 [build-system]

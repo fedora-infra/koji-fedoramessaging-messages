@@ -14,7 +14,6 @@
 """Define schema for fedora messages sent by koji"""
 
 import re
-from typing import List
 
 from fedora_messaging.message import DEBUG
 
@@ -111,7 +110,7 @@ class TagMessage(KojiFedoraMessagingMessage):
         )
 
     @property
-    def packages(self) -> List[str]:
+    def packages(self) -> list[str]:
         return [self.name] if self.name else []
 
     @property
@@ -120,7 +119,7 @@ class TagMessage(KojiFedoraMessagingMessage):
         return self.user
 
     @property
-    def usernames(self) -> List[str]:
+    def usernames(self) -> list[str]:
         return [name for name in (self.agent_name, self.owner) if name is not None]
 
     @property

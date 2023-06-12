@@ -15,7 +15,7 @@
 
 import logging
 
-from .base import KojiFedoraMessagingMessage, SCHEMA_URL, TASK_INFO
+from .base import SCHEMA_URL, TASK_INFO, KojiFedoraMessagingMessage
 from .utilities import fill_task_template
 
 log = logging.getLogger(__name__)

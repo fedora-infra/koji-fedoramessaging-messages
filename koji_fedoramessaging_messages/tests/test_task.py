@@ -19,7 +19,6 @@ def test_task_state_change_message():
             "channel_id": 1,
             "state": 2,
             "create_time": 1584475491.0,
-            "result": None,
             "owner": 3199,
             "host_id": 303,
             "host_name": "buildvm-armv7-16.arm.fedoraproject.org",

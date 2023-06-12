@@ -17,7 +17,6 @@
 
 from fedora_messaging import message
 
-
 SCHEMA_URL = "http://fedoraproject.org/message-schema/"
 
 
