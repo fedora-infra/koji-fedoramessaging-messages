@@ -67,7 +67,7 @@ class DoneV1(RepoMessage):
         "$schema": "https://json-schema.org/draft/2019-09/schema",
         "description": "A package repo task was done.",
         "type": "object",
-        "properties": REPO,
+        "properties": REPO["properties"],
     }
 
 
@@ -81,5 +81,5 @@ class InitV1(RepoMessage):
         "$schema": "https://json-schema.org/draft/2019-09/schema",
         "description": "A package repo task is initialized.",
         "type": "object",
-        "properties": REPO,
+        "properties": REPO["properties"],
     }

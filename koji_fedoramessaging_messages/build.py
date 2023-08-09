@@ -89,11 +89,8 @@ class BuildStateChangeV1(KojiFedoraMessagingMessage):
                 "description": "task id",
             },
             "task": {
-                "type": ["null", "object"],
+                "$ref": "#/$defs/task_info",
                 "desctiption": "the task that triggered this build, if any",
-                "properties": {
-                    "$ref": "#/$defs/task_info/properties",
-                },
             },
             "request": {
                 "description": "build request details",

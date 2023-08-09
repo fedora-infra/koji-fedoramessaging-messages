@@ -33,7 +33,7 @@ TAG = {
             "description": "distinguish between messages from primary and secondary koji",
         },
         "tag": {
-            "type": "string",
+            "type": ["string", "null"],
             "description": "name of the tag",
         },
         "user": {
@@ -149,7 +149,7 @@ class TagV1(TagMessage):
         "$schema": "https://json-schema.org/draft/2019-09/schema",
         "description": "A package is tagged.",
         "type": "object",
-        "properties": TAG,
+        "properties": TAG["properties"],
     }
 
 
@@ -163,5 +163,5 @@ class UntagV1(TagMessage):
         "$schema": "https://json-schema.org/draft/2019-09/schema",
         "description": "A package is untagged.",
         "type": "object",
-        "properties": TAG,
+        "properties": TAG["properties"],
     }

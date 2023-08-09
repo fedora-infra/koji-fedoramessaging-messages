@@ -60,7 +60,7 @@ TASK_RESULT = {
 
 TASK_INFO = {
     "$anchor": "task_info",
-    "type": "object",
+    "type": ["object", "null"],
     "description": "Information about a task",
     "properties": {
         "id": {
