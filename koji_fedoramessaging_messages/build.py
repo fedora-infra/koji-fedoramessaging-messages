@@ -189,7 +189,20 @@ class BuildStateChangeV1(KojiFedoraMessagingMessage):
 
     @property
     def agent_name(self) -> Optional[str]:
-        return self.owner
+        if self.old is None:
+            return self.owner
+        elif self.new in (
+            BUILD_STATES.COMPLETE.value,
+            BUILD_STATES.FAILED.value,
+            BUILD_STATES.DELETED.value,
+        ):
+            return None
+        else:
+            return self.owner
+
+    @property
+    def usernames(self):
+        return [self.owner] if self.owner is not None else None
 
     @property
     def summary(self) -> str:

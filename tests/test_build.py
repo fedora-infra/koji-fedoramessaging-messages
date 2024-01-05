@@ -1,8 +1,11 @@
-from koji_fedoramessaging_messages.build import BuildStateChangeV1
+import pytest
+
+from koji_fedoramessaging_messages.build import BUILD_STATES, BuildStateChangeV1
 
 
-def test_build_state_change_message():
-    body = {
+@pytest.fixture
+def msg_build_complete():
+    return {
         "build_id": 1478312,
         "old": 0,
         "name": "chromium",
@@ -28,7 +31,9 @@ def test_build_state_change_message():
         "url": "https://koji.fedoraproject.org/koji/buildinfo?taskID=1478312",
     }
 
-    msg = BuildStateChangeV1(body=body)
+
+def test_build_state_change_message(msg_build_complete):
+    msg = BuildStateChangeV1(body=msg_build_complete)
     msg.validate()
     assert msg.build_id == 1478312
     assert msg.name == "chromium"
@@ -40,12 +45,11 @@ def test_build_state_change_message():
     assert msg.new == 1
     assert msg.task_id is None
     assert msg.attribute == "state"
-    assert msg.request == body["request"]
+    assert msg.request == msg_build_complete["request"]
     assert msg.instance == "primary"
     assert msg.epoch is None
     assert msg.url == "https://koji.fedoraproject.org/koji/buildinfo?taskID=1478312"
 
-    assert msg.agent_name == "spot"
     assert msg.summary == "Build COMPLETE: spot's chromium-80.0.3987.132-1.fc33"
     assert msg.packages == ["chromium"]
     expected_str = """Package:    chromium-80.0.3987.132-1.fc33
@@ -60,62 +64,44 @@ Build imported into koji
     assert str(msg) == expected_str
 
 
-def test_build_state_change_message_with_task():
-    body = {
-        "build_id": 1478312,
-        "old": 0,
-        "name": "chromium",
-        "task_id": 42561864,
-        "attribute": "state",
-        "request": [
-            (
-                "git+https://src.fedoraproject.org/rpms/chromium.git#"
-                "5f8f367e482fe8e30711aea49bf2ecfd163d278f"
-            ),
-            "rawhide",
-            {},
-        ],
-        "instance": "primary",
-        "epoch": None,
-        "version": "80.0.3987.132",
-        "owner": "spot",
-        "new": 1,
-        "release": "1.fc33",
-        "creation_time": "2023-06-09T07:16:27.818161+00:00",
-        "completion_time": "2023-06-09T07:35:14.682273+00:00",
-        "files_base_url": "http://files.example.com/work",
-        "task": {
-            "parent": None,
-            "completion_time": 1584475720.0,
-            "start_time": 1584475492.0,
-            "request": [
-                (
-                    "git+https://src.fedoraproject.org/rpms/chromium.git#"
-                    "5f8f367e482fe8e30711aea49bf2ecfd163d278f"
-                ),
-                "rawhide",
-                {},
-            ],
-            "waiting": False,
-            "awaited": None,
-            "id": 42561864,
-            "priority": 20,
-            "channel_id": 19,
-            "state": 2,
-            "create_time": 1584475491.0,
-            "owner": 3199,
-            "host_id": 306,
-            "host_name": "buildvm-armv7-19.arm.fedoraproject.org",
-            "method": "build",
-            "label": None,
-            "arch": "noarch",
-            "url": "https://koji.fedoraproject.org/koji/taskinfo?taskID=42561864",
-            "result": None,
-            "children": [],
-        },
-    }
+def test_build_state_change_message_with_task(msg_build_complete):
+    msg_build_complete.update(
+        {
+            "files_base_url": "http://files.example.com/work",
+            "task_id": 42561864,
+            "task": {
+                "parent": None,
+                "completion_time": 1584475720.0,
+                "start_time": 1584475492.0,
+                "request": [
+                    (
+                        "git+https://src.fedoraproject.org/rpms/chromium.git#"
+                        "5f8f367e482fe8e30711aea49bf2ecfd163d278f"
+                    ),
+                    "rawhide",
+                    {},
+                ],
+                "waiting": False,
+                "awaited": None,
+                "id": 42561864,
+                "priority": 20,
+                "channel_id": 19,
+                "state": 2,
+                "create_time": 1584475491.0,
+                "owner": 3199,
+                "host_id": 306,
+                "host_name": "buildvm-armv7-19.arm.fedoraproject.org",
+                "method": "build",
+                "label": None,
+                "arch": "noarch",
+                "url": "https://koji.fedoraproject.org/koji/taskinfo?taskID=42561864",
+                "result": None,
+                "children": [],
+            },
+        }
+    )
 
-    msg = BuildStateChangeV1(body=body)
+    msg = BuildStateChangeV1(body=msg_build_complete)
     msg.validate()
     assert msg.build_id == 1478312
     assert msg.name == "chromium"
@@ -126,11 +112,10 @@ def test_build_state_change_message_with_task():
     assert msg.new == 1
     assert msg.task_id == 42561864
     assert msg.attribute == "state"
-    assert msg.request == body["request"]
+    assert msg.request == msg_build_complete["request"]
     assert msg.instance == "primary"
     assert msg.epoch is None
 
-    assert msg.agent_name == "spot"
     assert msg.summary == "Build COMPLETE: spot's chromium-80.0.3987.132-1.fc33"
     assert msg.packages == ["chromium"]
     expected_str = """Package:    chromium-80.0.3987.132-1.fc33
@@ -149,34 +134,15 @@ Link: https://koji.fedoraproject.org/koji/taskinfo?taskID=42561864
     assert str(msg) == expected_str
 
 
-def test_build_not_finished():
-    body = {
-        "build_id": 1478312,
-        "old": None,
-        "name": "chromium",
-        "task_id": None,
-        "task": None,
-        "attribute": "state",
-        "request": [
-            (
-                "git+https://src.fedoraproject.org/rpms/chromium.git#"
-                "5f8f367e482fe8e30711aea49bf2ecfd163d278f"
-            ),
-            "rawhide",
-            {},
-        ],
-        "instance": "primary",
-        "epoch": None,
-        "version": "80.0.3987.132",
-        "owner": "spot",
-        "new": 0,
-        "release": "1.fc33",
-        "creation_time": "2023-06-09T07:16:27.818161+00:00",
-        "completion_time": None,
-        "url": "https://koji.fedoraproject.org/koji/buildinfo?taskID=1478312",
-    }
-
-    msg = BuildStateChangeV1(body=body)
+def test_build_not_finished(msg_build_complete):
+    msg_build_complete.update(
+        {
+            "old": None,
+            "new": 0,
+            "completion_time": None,
+        }
+    )
+    msg = BuildStateChangeV1(body=msg_build_complete)
     msg.validate()
     expected_str = """Package:    chromium-80.0.3987.132-1.fc33
 Status:     building
@@ -188,3 +154,27 @@ Finished:   (still running)
 Build imported into koji
 """
     assert str(msg) == expected_str
+
+
+@pytest.mark.parametrize(
+    ["oldstate", "newstate", "agent_name"],
+    [
+        (None, BUILD_STATES.BUILDING.value, "spot"),
+        (BUILD_STATES.BUILDING.value, BUILD_STATES.COMPLETE.value, None),
+        (BUILD_STATES.BUILDING.value, BUILD_STATES.FAILED.value, None),
+        (BUILD_STATES.BUILDING.value, BUILD_STATES.CANCELED.value, "spot"),
+        (BUILD_STATES.COMPLETE.value, BUILD_STATES.DELETED.value, None),
+        (BUILD_STATES.FAILED.value, BUILD_STATES.DELETED.value, None),
+    ],
+)
+def test_build_users(msg_build_complete, oldstate, newstate, agent_name):
+    msg_build_complete.update(
+        {
+            "old": oldstate,
+            "new": newstate,
+        }
+    )
+    msg = BuildStateChangeV1(body=msg_build_complete)
+    msg.validate()
+    assert msg.agent_name == agent_name
+    assert msg.usernames == ["spot"]
