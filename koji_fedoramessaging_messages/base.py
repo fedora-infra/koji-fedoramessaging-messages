@@ -21,7 +21,8 @@ SCHEMA_URL = "http://fedoraproject.org/message-schema/"
 
 
 TASK_RESULT = {
-    "type": ["null", "object"],
+    # LiveCD results are a string
+    "type": ["null", "object", "string"],
     "description": "the results of a task (files)",
     "properties": {
         "srpm": {
