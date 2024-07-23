@@ -103,7 +103,7 @@ TASK_INFO = {
             "description": "completion time",
         },
         "start_time": {
-            "type": "number",
+            "type": ["number", "null"],
             "description": "start time",
         },
         "create_time": {

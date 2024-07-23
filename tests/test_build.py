@@ -156,6 +156,24 @@ Build imported into koji
     assert str(msg) == expected_str
 
 
+def test_build_state_change_message_with_task_no_start_time(msg_build_complete):
+    msg_build_complete.update(
+        {
+            "task": {
+                "start_time": None,
+                # The rest is normal
+                "id": 42561864,
+                "host_id": None,
+                "method": "build",
+                "arch": "noarch",
+                "result": None,
+            },
+        }
+    )
+    msg = BuildStateChangeV1(body=msg_build_complete)
+    msg.validate()
+
+
 @pytest.mark.parametrize(
     ["oldstate", "newstate", "agent_name"],
     [
