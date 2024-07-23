@@ -94,7 +94,7 @@ class BuildStateChangeV1(KojiFedoraMessagingMessage):
             },
             "request": {
                 "description": "build request details",
-                "type": ["array"],
+                "type": ["array", "null"],
             },
             # States
             "old": {"type": ["null", "integer"], "description": "previous state"},

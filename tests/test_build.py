@@ -1,4 +1,5 @@
 import pytest
+from jsonschema.exceptions import ValidationError
 
 from koji_fedoramessaging_messages.build import BUILD_STATES, BuildStateChangeV1
 
@@ -171,7 +172,20 @@ def test_build_state_change_message_with_task_no_start_time(msg_build_complete):
         }
     )
     msg = BuildStateChangeV1(body=msg_build_complete)
-    msg.validate()
+    try:
+        msg.validate()
+    except ValidationError:
+        pytest.fail("The message didn't validate with start_time == None")
+
+
+def test_build_no_request(msg_build_complete):
+    msg_build_complete["request"] = None
+    msg = BuildStateChangeV1(body=msg_build_complete)
+    try:
+        msg.validate()
+    except ValidationError:
+        pytest.fail("The message didn't validate with request == None")
+    assert msg.request is None
 
 
 @pytest.mark.parametrize(
