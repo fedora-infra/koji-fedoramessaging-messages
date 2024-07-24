@@ -1,18 +1,31 @@
 name: CI & Publish
-on: [push, pull_request, workflow_dispatch]
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - v*
+  pull_request:
+    branches:
+      - main
+
 jobs:
+
   tests:
     runs-on: ubuntu-latest
     container: fedorapython/fedora-python-tox:latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Mark the directory as safe for git
-        run: git config --global --add safe.directory $PWD
-
-      - name: Install RPM dependencies
+      - name: Install dependencies
         run: |
           dnf install -y krb5-devel
+          pip install poetry
+
+      - name: Mark the working directory as safe for Git
+        run: git config --global --add safe.directory $PWD
+
 
       - name: Install base Python dependencies
         run: |
