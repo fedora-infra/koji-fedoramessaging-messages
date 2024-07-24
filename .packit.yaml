@@ -30,7 +30,8 @@ actions:
     - "poetry version -s"
 
 targets:
-  - fedora-latest-stable
+  - fedora-all
+  - epel9
 
 jobs:
 
