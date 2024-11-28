@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2024 Red Hat, Inc
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 import pytest
 
 from koji_fedoramessaging_messages.tag import TagV1, UntagV1

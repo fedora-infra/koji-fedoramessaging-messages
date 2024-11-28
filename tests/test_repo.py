@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2024 Red Hat, Inc
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 from koji_fedoramessaging_messages.repo import DoneV1, InitV1
 
 

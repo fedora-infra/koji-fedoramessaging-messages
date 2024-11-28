@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2020-2024 Red Hat, Inc
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 import datetime
 
 _task_header_template = """Task {id} on {build_host}
