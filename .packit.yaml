@@ -31,7 +31,7 @@ actions:
 
 targets:
   - fedora-all
-  - epel9
+  - epel-9
 
 jobs:
 
