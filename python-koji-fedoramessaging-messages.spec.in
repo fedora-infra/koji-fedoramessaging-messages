@@ -43,7 +43,7 @@ Schema package for koji-fedoramessaging.
 %{__python3} -m pytest -v tests/
 
 %files -n python3-%{rpm_name}
-%license LICENSE
+%license LICENSES/GPL-3.0-or-later.txt
 %doc README.md
 %{python3_sitelib}/%{pypi_name}
 %{python3_sitelib}/%{pypi_name}-%{pypi_version}-py%{python3_version}.egg-info
