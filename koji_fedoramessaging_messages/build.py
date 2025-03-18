@@ -6,7 +6,7 @@
 
 import logging
 from enum import Enum
-from typing import Optional
+from typing import Optional, Union
 
 from .base import SCHEMA_URL, TASK_INFO, KojiFedoraMessagingMessage
 from .utilities import date_to_string, fill_task_template
@@ -175,7 +175,7 @@ class BuildStateChangeV1(KojiFedoraMessagingMessage):
         return self.body["release"]
 
     @property
-    def epoch(self) -> Optional[str | int]:
+    def epoch(self) -> Optional[Union[str, int]]:
         return self.body["epoch"]
 
     @property
