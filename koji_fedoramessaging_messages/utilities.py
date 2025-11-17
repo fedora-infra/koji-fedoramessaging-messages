@@ -38,7 +38,7 @@ def fill_task_template(task_info, files_base_url):
 
     if task_info["children"]:
         retval += f"\nTask {task_info['id']} has the following sub-tasks:\n"
-    for child in sorted(task_info["children"], key=lambda d: d.get("completion_time")):
+    for child in sorted(task_info["children"], key=lambda d: d.get("completion_time") or 0):
         retval += "\n" + fill_task_template(child, files_base_url)
 
     return retval
